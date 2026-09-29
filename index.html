@@ -453,6 +453,7 @@
       >
          <div
             class="music-icon"
+            id="music-btn-circle"
             style="
                background: rgba(255, 255, 255, 0.9);
                padding: 12px;
@@ -463,17 +464,33 @@
                display: flex;
                align-items: center;
                justify-content: center;
+               transition: transform 0.3s ease;
             "
          >
             <span id="music-status-icon" style="font-size: 20px">🔇</span>
          </div>
       </div>
 
-      <!-- Trình phát nhạc gọi file nội bộ trong máy giúp tải cực nhanh và ổn định 100% -->
+      <!-- Trình phát nhạc gọi file nội bộ trong máy -->
       <audio id="wedding-audio" loop preload="auto">
          <source src="./Beautiful_In_White.mp3" type="audio/mpeg" />
          Trình duyệt của bạn không hỗ trợ phát âm thanh.
       </audio>
+
+      <!-- Thêm một đoạn CSS nhỏ để tạo hiệu ứng xoay đĩa nhạc khi phát bài hát -->
+      <style>
+         @keyframes spin {
+            0% {
+               transform: rotate(0deg);
+            }
+            100% {
+               transform: rotate(360deg);
+            }
+         }
+         .music-spinning {
+            animation: spin 3s linear infinite;
+         }
+      </style>
       <!-- Thanh Menu -->
       <nav>
          <a href="#home">Trang Chủ</a>
@@ -741,56 +758,65 @@
       <script>
          const audio = document.getElementById("wedding-audio");
          const icon = document.getElementById("music-status-icon");
+         const btnCircle = document.getElementById("music-btn-circle");
          let isPlaying = false;
 
-         // Hàm bật / tắt nhạc khi khách click trực tiếp vào nút icon 🎵
+         // Hàm bật / tắt nhạc khi khách chủ động click trực tiếp vào nút icon 🎵
          function toggleMusic() {
             if (isPlaying) {
                audio.pause();
                icon.innerText = "🔇";
+               btnCircle.classList.remove("music-spinning"); // Dừng xoay đĩa nhạc
                isPlaying = false;
             } else {
-               audio
-                  .play()
-                  .then(() => {
-                     icon.innerText = "🎵";
-                     isPlaying = true;
-                  })
-                  .catch((error) => {
-                     console.log("Lỗi phát nhạc: ", error);
-                  });
+               playAudioSecurely();
             }
          }
 
-         // Tự động kích hoạt nhạc ngay khi khách cuộn trang hoặc chạm tay vào màn hình lần đầu
-         function triggerAutoPlay() {
+         // Hàm cốt lõi kích hoạt âm thanh một cách an toàn
+         function playAudioSecurely() {
+            audio
+               .play()
+               .then(() => {
+                  isPlaying = true;
+                  icon.innerText = "🎵";
+                  btnCircle.classList.add("music-spinning"); // Đĩa nhạc tự động xoay tròn sinh động
+                  removeInteractionListeners(); // Kích hoạt thành công thì gỡ bỏ lắng nghe để tiết kiệm hiệu năng
+               })
+               .catch((error) => {
+                  // Trường hợp trình duyệt quá nghiêm ngặt (như Safari trên một số phiên bản iOS), hệ thống sẽ im lặng chờ khách click
+                  console.log("Trình duyệt đang chặn quyền Autoplay: ", error);
+               });
+         }
+
+         // Hàm kích hoạt khi phát hiện hành động cuộn trang hoặc chạm vuốt màn hình
+         function triggerMusicOnScroll() {
             if (!isPlaying) {
-               audio
-                  .play()
-                  .then(() => {
-                     isPlaying = true;
-                     icon.innerText = "🎵";
-                     removeInteractionListeners();
-                  })
-                  .catch((error) => {
-                     // Nếu trình duyệt vẫn chặn nghiêm ngặt, hệ thống sẽ đợi khách bấm nút 🎵
-                     console.log(
-                        "Trình duyệt chặn Autoplay, chờ khách click nút.",
-                     );
-                  });
+               playAudioSecurely();
             }
          }
 
+         // Cơ chế xóa bỏ lắng nghe sự kiện
          function removeInteractionListeners() {
-            document.removeEventListener("click", triggerAutoPlay);
-            document.removeEventListener("touchstart", triggerAutoPlay);
-            document.removeEventListener("scroll", triggerAutoPlay);
+            window.removeEventListener("scroll", triggerMusicOnScroll);
+            document.removeEventListener("scroll", triggerMusicOnScroll);
+            document.removeEventListener("touchstart", triggerMusicOnScroll);
+            document.removeEventListener("mousemove", triggerMusicOnScroll);
          }
 
-         // Đăng ký các sự kiện tương tác để mở nhạc tự động
-         document.addEventListener("click", triggerAutoPlay);
-         document.addEventListener("touchstart", triggerAutoPlay);
-         document.addEventListener("scroll", triggerAutoPlay);
+         // Đăng ký chuỗi sự kiện để bắt trọn khoảnh khắc khách vừa cuộn trang/thao tác trên màn hình
+         window.addEventListener("scroll", triggerMusicOnScroll, {
+            passive: true,
+         });
+         document.addEventListener("scroll", triggerMusicOnScroll, {
+            passive: true,
+         });
+         document.addEventListener("touchstart", triggerMusicOnScroll, {
+            passive: true,
+         });
+         document.addEventListener("mousemove", triggerMusicOnScroll, {
+            passive: true,
+         });
       </script>
    </body>
 </html>
