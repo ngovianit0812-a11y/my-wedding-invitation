@@ -439,7 +439,7 @@
       </style>
    </head>
    <body>
-      <!-- Nút điều khiển Bật/Tắt nhạc (Thiết kế đĩa nhạc ghim ở góc dưới bên phải) -->
+      <!-- Nút điều khiển Bật/Tắt nhạc ghim ở góc dưới bên phải -->
       <div
          id="music-control"
          onclick="toggleMusic()"
@@ -463,18 +463,20 @@
                display: flex;
                align-items: center;
                justify-content: center;
-               transition: transform 0.3s ease;
             "
          >
-            <span id="music-status-icon" style="font-size: 20px">🎵</span>
+            <span id="music-status-icon" style="font-size: 20px">🔇</span>
          </div>
       </div>
 
-      <!-- Trình phát nhạc ẩn - Đã nhúng link online bài Beautiful In White -->
-      <audio id="wedding-audio" loop prefetch="auto">
-         <source src="https://archive.org" type="audio/mpeg" />
-         Trình duyệt của bạn không hỗ trợ phát âm thanh.
-      </audio>
+      <!-- Trình phát nhạc với đường link CDN mới, có thêm thanh điều khiển (controls) để bạn kiểm tra thử -->
+      <!-- Sau khi trang web chạy tốt, bạn có thể xóa chữ "controls" đi để ẩn thanh này -->
+      <div style="position: fixed; bottom: 80px; right: 25px; z-index: 9999">
+         <audio id="wedding-audio" controls loop preload="auto">
+            <source src="https://audio.com" type="audio/mpeg" />
+            Trình duyệt của bạn không hỗ trợ phát âm thanh.
+         </audio>
+      </div>
       <!-- Thanh Menu -->
       <nav>
          <a href="#home">Trang Chủ</a>
@@ -740,57 +742,55 @@
          }, 1000);
       </script>
       <script>
-      const audio = document.getElementById("wedding-audio");
-      const icon = document.getElementById("music-status-icon");
-      const controlBtn = document.getElementById("music-control");
-      let isPlaying = false;
+         const audio = document.getElementById("wedding-audio");
+         const icon = document.getElementById("music-status-icon");
+         let isPlaying = false;
 
-      // 1. Hàm bật / tắt nhạc chủ động khi bấm nút
-      function toggleMusic() {
-         if (isPlaying) {
-            audio.pause();
-            icon.innerText = "🔇";
-            controlBtn.style.animation = "none"; // Dừng xoay nút
-            isPlaying = false;
-         } else {
-            audio
-               .play()
-               .then(() => {
-                  icon.innerText = "🎵";
-                  isPlaying = true;
-               })
-               .catch((error) =>
-                  console.log("Lỗi trình duyệt chặn âm thanh: ", error),
-               );
+         // Hàm bật / tắt nhạc khi click trực tiếp vào nút icon
+         function toggleMusic() {
+            if (isPlaying) {
+               audio.pause();
+               icon.innerText = "🔇";
+               isPlaying = false;
+            } else {
+               audio
+                  .play()
+                  .then(() => {
+                     icon.innerText = "🎵";
+                     isPlaying = true;
+                  })
+                  .catch((error) => alert("Không thể phát nhạc: " + error));
+            }
          }
-      }
 
-      // 2. Kích hoạt phát tự động ngay khi khách tương tác (cuộn/click) lần đầu vào thiệp cưới
-      function autoPlayOnInteraction() {
-         if (!isPlaying) {
-            audio
-               .play()
-               .then(() => {
-                  isPlaying = true;
-                  icon.innerText = "🎵";
-                  // Gỡ bỏ sự kiện sau khi kích hoạt thành công để tiết kiệm hiệu năng
-                  document.removeEventListener("click", autoPlayOnInteraction);
-                  document.removeEventListener(
-                     "touchstart",
-                     autoPlayOnInteraction,
-                  );
-                  document.removeEventListener("scroll", autoPlayOnInteraction);
-               })
-               .catch((error) => {
-                  console.log("Đợi khách tương tác thêm để phát nhạc...");
-               });
+         // Tự động phát khi khách cuộn trang hoặc chạm màn hình lần đầu
+         function triggerAutoPlay() {
+            if (!isPlaying) {
+               audio
+                  .play()
+                  .then(() => {
+                     isPlaying = true;
+                     icon.innerText = "🎵";
+                     removeInteractionListeners();
+                  })
+                  .catch((error) => {
+                     console.log(
+                        "Trình duyệt vẫn đang chặn phát tự động, chờ khách bấm nút.",
+                     );
+                  });
+            }
          }
-      }
 
-      // Lắng nghe tất cả các thao tác vuốt màn hình, chạm trên điện thoại của khách để mở nhạc tự động
-      document.addEventListener("click", autoPlayOnInteraction);
-      document.addEventListener("touchstart", autoPlayOnInteraction);
-      document.addEventListener("scroll", autoPlayOnInteraction);
-   </script>
+         function removeInteractionListeners() {
+            document.removeEventListener("click", triggerAutoPlay);
+            document.removeEventListener("touchstart", triggerAutoPlay);
+            document.removeEventListener("scroll", triggerAutoPlay);
+         }
+
+         // Đăng ký tương tác người dùng để kích hoạt âm thanh
+         document.addEventListener("click", triggerAutoPlay);
+         document.addEventListener("touchstart", triggerAutoPlay);
+         document.addEventListener("scroll", triggerAutoPlay);
+      </script>
    </body>
 </html>
