@@ -605,58 +605,43 @@
       </section>
 
       <section id="gift">
-         <!-- Cấu trúc HTML phần Wedding Registry cập nhật tài khoản Chú Rể -->
-         <div class="wedding-registry">
-            <h2>Wedding Registry</h2>
-
-            <!-- Hộp quà Chú Rể An (ĐÃ CẬP NHẬT) -->
-            <div class="gift-box">
-               <h4>Chú Rể An</h4>
-               <div
-                  class="qr-container"
-                  style="text-align: center; margin: 15px 0"
-               >
-                  <!-- Sử dụng VietQR API tự động tạo mã QR mới cho Techcombank -->
-                  <img
-                     src="https://vietqr.io"
-                     alt="QR Mừng Cưới Chú Rể An"
-                     style="
-                        max-width: 220px;
-                        width: 100%;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                     "
-                  />
-               </div>
-               <p><strong>Techcombank</strong></p>
-               <p>STK: 0335885529</p>
-               <p>CTK: NGO VI AN</p>
+    <div class="section-header" data-aos="fade-up">
+        <h2>Wedding Registry</h2>
+        <div class="divider"></div>
+    </div>
+    <div class="gift-grid">
+        <!-- Khối thông tin Chú Rể An (Đã cập nhật TK mới và thêm ảnh QR) -->
+        <div class="gift-card" data-aos="fade-up" data-aos-delay="200">
+            <h4>Chú Rể An</h4>
+            <div class="qr-code">
+                <img src="https://vietqr.io" 
+                     alt="QR Mừng Cưới Chú Rể An" 
+                     style="max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
             </div>
-
-            <!-- Hộp quà Cô Dâu Hoàn (GIỮ NGUYÊN) -->
-            <div class="gift-box">
-               <h4>Cô Dâu Hoàn</h4>
-               <div
-                  class="qr-container"
-                  style="text-align: center; margin: 15px 0"
-               >
-                  <img
-                     src="https://vietqr.io"
-                     alt="QR Mừng Cưới Cô Dâu Hoàn"
-                     style="
-                        max-width: 220px;
-                        width: 100%;
-                        border-radius: 8px;
-                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                     "
-                  />
-               </div>
-               <p><strong>Techcombank</strong></p>
-               <p>STK: 987654321</p>
-               <p>CTK: LE THI HOAN</p>
+            <div class="gift-info">
+                <p><b>Techcombank</b></p>
+                <p>STK: 0335885529</p>
+                <p>CTK: NGO VI AN</p>
             </div>
-         </div>
-      </section>
+        </div>
+        
+        <!-- Khối thông tin Cô Dâu Hoàn (Đã thêm ảnh QR) -->
+        <div class="gift-card" data-aos="fade-up" data-aos-delay="400">
+            <h4>Cô Dâu Hoàn</h4>
+            <div class="qr-code">
+                <img src="https://vietqr.io" 
+                     alt="QR Mừng Cưới Cô Dâu Hoàn" 
+                     style="max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
+            </div>
+            <div class="gift-info">
+                <p><b>Techcombank</b></p>
+                <p>STK: 987654321</p>
+                <p>CTK: LE THI HOAN</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 
       <footer>
          <h3>An & Hoàn</h3>
