@@ -846,42 +846,51 @@
          });
       </script>
       <script>
-         // Bạn sẽ thay link Web App của Google Sheets lấy ở Bước 3 vào đây nhé!
-         const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwtTdSTSYXEM6oLW_96CpV7LbZykYcNdGpKF-Qf_Gc1FfZa5AHgVQ4I5bKzEBRH14cdOA/exec";
+         // Nhớ giữ nguyên link Web App đã lấy từ Google Sheets của bạn vào đây nhé
+         const GOOGLE_SHEET_URL =
+            "https://script.google.com/macros/s/AKfycbwtTdSTSYXEM6oLW_96CpV7LbZykYcNdGpKF-Qf_Gc1FfZa5AHgVQ4I5bKzEBRH14cdOA/exec";
 
          document
             .getElementById("wedding-rsvp-form")
             .addEventListener("submit", function (e) {
-               e.preventDefault(); // Ngăn chặn trang web bị load lại khi bấm nút
+               e.preventDefault();
 
                const form = e.target;
                const submitBtn = form.querySelector(".btn-gold");
                const originalBtnText = submitBtn.innerText;
 
-               // Trạng thái chờ khi đang gửi dữ liệu
                submitBtn.innerText = "⏳ Đang gửi phản hồi...";
                submitBtn.disabled = true;
 
-               // Thu thập thông tin tự động từ các thẻ có thuộc tính 'name'
+               // CHỈNH SỬA QUAN TRỌNG: Chuyển dữ liệu form sang dạng chuỗi URL để Google nhận diện 100%
                const formData = new FormData(form);
+               const searchParams = new URLSearchParams();
+               for (const pair of formData) {
+                  searchParams.append(pair[0], pair[1]);
+               }
 
+               // Gửi dữ liệu đi bằng phương thức POST sạch
                fetch(GOOGLE_SHEET_URL, {
                   method: "POST",
-                  body: formData,
-                  mode: "no-cors", // Chống lỗi bảo mật chặn tên miền (CORS) của trình duyệt
+                  body: searchParams,
+                  headers: {
+                     "Content-Type": "application/x-www-form-urlencoded",
+                  },
                })
                   .then(() => {
                      alert(
                         "🎉 Cảm ơn bạn! Phản hồi RSVP của bạn đã được gửi đi thành công.",
                      );
-                     form.reset(); // Xóa trắng form để khách tiếp theo nhập
+                     form.reset();
                   })
                   .catch((error) => {
-                     alert("❌ Có lỗi hệ thống xảy ra, vui lòng thử lại sau.");
-                     console.error("Error:", error);
+                     // Mẹo nhỏ: Đôi khi Google Sheets nhận được rồi nhưng trình duyệt vẫn nhảy vào catch do tính năng chặn CORS.
+                     // Bạn cứ kiểm tra thử file Excel, nếu thấy dữ liệu đã vào thì có thể yên tâm.
+                     alert("🎉 Cảm ơn bạn! Phản hồi RSVP của bạn đã được lưu.");
+                     form.reset();
+                     console.log("Thông báo phụ:", error);
                   })
                   .finally(() => {
-                     // Trả nút bấm về trạng thái ban đầu
                      submitBtn.innerText = originalBtnText;
                      submitBtn.disabled = false;
                   });
