@@ -1,281 +1,707 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>An & Hoàn - Lời Mời Thành Hôn</title>
-    
-    <!-- Nhúng Font chữ cao cấp từ Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;400;500&display=swap" rel="stylesheet">
-    
-    <!-- Nhúng thư viện hiệu ứng cuộn trang Animate On Scroll (AOS) -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>An & Hoàn - Lời Mời Thành Hôn</title>
 
-    <style>
-        :root {
-            --primary: #1c2c22;       /* Xanh rêu đậm hoàng gia */
-            --gold: #c5a880;          /* Vàng champagne sang trọng */
-            --gold-light: #f4f0ea;    /* Nền kem nhạt quý phái */
-            --text-dark: #2c2c2c;     /* Chữ chính đen xám nhạt dịu mắt */
-            --text-light: #666666;    /* Chữ phụ */
+      <!-- Nhúng Font chữ cao cấp từ Google Fonts -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link
+         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;400;500&display=swap"
+         rel="stylesheet"
+      />
+
+      <!-- Nhúng thư viện hiệu ứng cuộn trang Animate On Scroll (AOS) -->
+      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+      <style>
+         :root {
+            --primary: #1c2c22; /* Xanh rêu đậm hoàng gia */
+            --gold: #c5a880; /* Vàng champagne sang trọng */
+            --gold-light: #f4f0ea; /* Nền kem nhạt quý phái */
+            --text-dark: #2c2c2c; /* Chữ chính đen xám nhạt dịu mắt */
+            --text-light: #666666; /* Chữ phụ */
             --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+         }
 
-        /* Khởi tạo CSS Reset cơ bản */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Cormorant Garamond', serif; background-color: #fbfbfa; color: var(--text-dark); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-        
-        /* Cấu trúc Tiêu đề nghệ thuật */
-        h1, h2, h3, h4 { font-family: 'Cinzel', serif; font-weight: 400; letter-spacing: 2px; color: var(--primary); }
-        .serif-italic { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; }
+         /* Khởi tạo CSS Reset cơ bản */
+         * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+         }
+         body {
+            font-family: "Cormorant Garamond", serif;
+            background-color: #fbfbfa;
+            color: var(--text-dark);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+         }
 
-        /* Menu Điều hướng Tối giản tinh tế */
-        nav { background: rgba(255, 255, 255, 0.85); padding: 20px; position: fixed; top: 0; width: 100%; z-index: 1000; backdrop-filter: blur(10px); border-bottom: 1px solid rgba(197,168,128,0.15); display: flex; justify-content: center; gap: 35px; }
-        nav a { text-decoration: none; color: var(--primary); font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; transition: var(--transition); position: relative; padding: 5px 0; }
-        nav a::after { content: ''; position: absolute; bottom: 0; left: 50%; width: 0; height: 1px; background: var(--gold); transition: var(--transition); transform: translateX(-50%); }
-        nav a:hover::after { width: 100%; }
-        nav a:hover { color: var(--gold); }
+         /* Cấu trúc Tiêu đề nghệ thuật */
+         h1,
+         h2,
+         h3,
+         h4 {
+            font-family: "Cinzel", serif;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--primary);
+         }
+         .serif-italic {
+            font-family: "Cormorant Garamond", serif;
+            font-style: italic;
+            font-weight: 400;
+         }
 
-        /* Khung nội dung chung */
-        section { padding: 120px 24px; max-width: 1100px; margin: 0 auto; text-align: center; }
-        .section-header { margin-bottom: 60px; }
-        .section-header h2 { font-size: 2rem; color: var(--primary); margin-bottom: 10px; }
-        .section-header .divider { width: 60px; height: 1px; background: var(--gold); margin: 20px auto; position: relative; }
-        .section-header .divider::after { content: '♦'; position: absolute; top: -7px; left: 50%; transform: translateX(-50%); background: #fbfbfa; padding: 0 6px; color: var(--gold); font-size: 0.6rem; }
+         /* Menu Điều hướng Tối giản tinh tế */
+         nav {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(197, 168, 128, 0.15);
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+         }
+         nav a {
+            text-decoration: none;
+            color: var(--primary);
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+         }
+         nav a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: var(--transition);
+            transform: translateX(-50%);
+         }
+         nav a:hover::after {
+            width: 100%;
+         }
+         nav a:hover {
+            color: var(--gold);
+         }
 
-        /* 1. Mở đầu cao cấp (Hero Banner) */
-        .hero { 
-            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            background: linear-gradient(rgba(28, 44, 34, 0.4), rgba(28, 44, 34, 0.4)), url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920') no-repeat center center/cover;
-            color: white; padding: 20px; position: relative;
-        }
-        .hero-sub { font-family: 'Montserrat', sans-serif; font-size: 0.85rem; letter-spacing: 5px; text-transform: uppercase; color: var(--gold); font-weight: 200; }
-        .hero h1 { font-size: 4.5rem; color: white; margin: 25px 0; font-weight: 400; text-shadow: 0 4px 20px rgba(0,0,0,0.15); line-height: 1.2; }
-        .hero-date { font-family: 'Cinzel', serif; font-size: 1.3rem; letter-spacing: 4px; border-top: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(255,255,255,0.3); padding: 12px 30px; margin-top: 15px; }
+         /* Khung nội dung chung */
+         section {
+            padding: 120px 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+         }
+         .section-header {
+            margin-bottom: 60px;
+         }
+         .section-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+         }
+         .section-header .divider {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            margin: 20px auto;
+            position: relative;
+         }
+         .section-header .divider::after {
+            content: "♦";
+            position: absolute;
+            top: -7px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fbfbfa;
+            padding: 0 6px;
+            color: var(--gold);
+            font-size: 0.6rem;
+         }
 
-        /* Đồng hồ đếm ngược hoàng gia */
-        .countdown { display: flex; gap: 30px; margin-top: 50px; }
-        .countdown-item { display: flex; flex-direction: column; align-items: center; min-width: 70px; }
-        .countdown-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: white; line-height: 1; }
-        .countdown-label { font-family: 'Montserrat', sans-serif; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-top: 8px; }
+         /* 1. Mở đầu cao cấp (Hero Banner) */
+         .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background:
+               linear-gradient(rgba(28, 44, 34, 0.4), rgba(28, 44, 34, 0.4)),
+               url("https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920")
+                  no-repeat center center/cover;
+            color: white;
+            padding: 20px;
+            position: relative;
+         }
+         .hero-sub {
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 200;
+         }
+         .hero h1 {
+            font-size: 4.5rem;
+            color: white;
+            margin: 25px 0;
+            font-weight: 400;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            line-height: 1.2;
+         }
+         .hero-date {
+            font-family: "Cinzel", serif;
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 30px;
+            margin-top: 15px;
+         }
 
-        /* 2. Câu chuyện lãng mạn */
-        .story-grid { display: flex; align-items: center; gap: 60px; text-align: left; margin-top: 40px; }
-        .story-img { width: 45%; height: 500px; background: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800') no-repeat center center/cover; border-radius: 4px; box-shadow: 20px 20px 0px 0px var(--gold-light); }
-        .story-content { width: 55%; }
-        .story-content p { font-size: 1.25rem; color: var(--text-light); line-height: 1.9; margin-bottom: 20px; font-weight: 300; }
+         /* Đồng hồ đếm ngược hoàng gia */
+         .countdown {
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+         }
+         .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 70px;
+         }
+         .countdown-num {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: white;
+            line-height: 1;
+         }
+         .countdown-label {
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-top: 8px;
+         }
 
-        /* 3. Lịch trình sự kiện kiểu thiệp Luxury */
-        .event-container { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 20px; }
-        .event-card { background: white; border: 1px solid rgba(195,168,128,0.3); padding: 60px 40px; width: 45%; min-width: 340px; border-radius: 2px; position: relative; transition: var(--transition); box-shadow: 0 5px 25px rgba(0,0,0,0.02); }
-        .event-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(28,44,34,0.05); border-color: var(--gold); }
-        .event-card h3 { font-size: 1.4rem; letter-spacing: 3px; margin-bottom: 20px; color: var(--primary); }
-        .event-time { font-size: 2.2rem; color: var(--gold); margin-bottom: 15px; font-weight: 300; }
-        .event-detail { font-size: 1.15rem; color: var(--text-light); margin-bottom: 5px; }
-        .event-address { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 1px; color: var(--text-dark); text-transform: uppercase; margin-top: 15px; }
+         /* 2. Câu chuyện lãng mạn */
+         .story-grid {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            text-align: left;
+            margin-top: 40px;
+         }
+         .story-img {
+            width: 45%;
+            height: 500px;
+            background: url("https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800")
+               no-repeat center center/cover;
+            border-radius: 4px;
+            box-shadow: 20px 20px 0px 0px var(--gold-light);
+         }
+         .story-content {
+            width: 55%;
+         }
+         .story-content p {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 20px;
+            font-weight: 300;
+         }
 
-        /* 4. Form RSVP chuẩn mực */
-        .rsvp-box { background: white; border: 1px solid rgba(195,168,128,0.25); max-width: 650px; margin: 0 auto; padding: 60px 50px; box-shadow: 0 10px 40px rgba(0,0,0,0.02); }
-        .rsvp-form { display: flex; flex-direction: column; text-align: left; gap: 20px; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; }
-        .form-group label { font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); font-weight: 500; }
-        .rsvp-form input, .rsvp-form select { padding: 14px; border: 1px solid #e0e0e0; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; background: #fafafa; border-radius: 0; transition: var(--transition); }
-        .rsvp-form input:focus, .rsvp-form select:focus { outline: none; border-color: var(--gold); background: white; }
-        .btn-gold { background: var(--primary); color: white; border: none; padding: 16px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: var(--transition); margin-top: 10px; }
-        .btn-gold:hover { background: var(--gold); color: white; }
+         /* 3. Lịch trình sự kiện kiểu thiệp Luxury */
+         .event-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+         }
+         .event-card {
+            background: white;
+            border: 1px solid rgba(195, 168, 128, 0.3);
+            padding: 60px 40px;
+            width: 45%;
+            min-width: 340px;
+            border-radius: 2px;
+            position: relative;
+            transition: var(--transition);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.02);
+         }
+         .event-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(28, 44, 34, 0.05);
+            border-color: var(--gold);
+         }
+         .event-card h3 {
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            color: var(--primary);
+         }
+         .event-time {
+            font-size: 2.2rem;
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-weight: 300;
+         }
+         .event-detail {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+         }
+         .event-address {
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+            margin-top: 15px;
+         }
 
-        /* 5. Khu vực Quà tặng nghệ thuật */
-        .gift-grid { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; }
-        .gift-card { background: white; padding: 40px; border: 1px solid #f0edf7; width: 300px; text-align: center; }
-        .qr-code { width: 160px; height: 160px; margin: 25px auto; background: #f9f9f9; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #aaa; font-family: 'Montserrat', sans-serif; }
-        .gift-card h4 { font-size: 1.1rem; letter-spacing: 2px; color: var(--primary); }
-        .gift-info { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; line-height: 1.8; color: var(--text-light); margin-top: 15px; }
+         /* 4. Form RSVP chuẩn mực */
+         .rsvp-box {
+            background: white;
+            border: 1px solid rgba(195, 168, 128, 0.25);
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 60px 50px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02);
+         }
+         .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            gap: 20px;
+         }
+         .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+         }
+         .form-group label {
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--primary);
+            font-weight: 500;
+         }
+         .rsvp-form input,
+         .rsvp-form select {
+            padding: 14px;
+            border: 1px solid #e0e0e0;
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.8rem;
+            background: #fafafa;
+            border-radius: 0;
+            transition: var(--transition);
+         }
+         .rsvp-form input:focus,
+         .rsvp-form select:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: white;
+         }
+         .btn-gold {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+         }
+         .btn-gold:hover {
+            background: var(--gold);
+            color: white;
+         }
 
-        /* Phần kết trang (Footer) */
-        footer { background: var(--primary); color: rgba(255,255,255,0.7); padding: 60px 24px; text-align: center; border-top: 2px solid var(--gold); }
-        footer h3 { color: var(--gold); font-size: 1.8rem; margin-bottom: 15px; }
-        footer p { font-size: 1.1rem; font-weight: 300; }
+         /* 5. Khu vực Quà tặng nghệ thuật */
+         .gift-grid {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+         }
+         .gift-card {
+            background: white;
+            padding: 40px;
+            border: 1px solid #f0edf7;
+            width: 300px;
+            text-align: center;
+         }
+         .qr-code {
+            width: 160px;
+            height: 160px;
+            margin: 25px auto;
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #aaa;
+            font-family: "Montserrat", sans-serif;
+         }
+         .gift-card h4 {
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            color: var(--primary);
+         }
+         .gift-info {
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-top: 15px;
+         }
 
-        /* Thiết kế tương thích hoàn hảo cho điện thoại (Responsive Mobile) */
-        @media (max-width: 768px) {
-            nav { gap: 15px; padding: 15px; }
-            nav a { font-size: 0.65rem; letter-spacing: 1px; }
-            .hero h1 { font-size: 2.8rem; }
-            section { padding: 80px 20px; }
-            .story-grid { flex-direction: column; gap: 40px; }
-            .story-img, .story-content { width: 100%; text-align: center; }
-            .story-img { height: 350px; }
-            .event-card { width: 100%; padding: 40px 25px; }
-            .rsvp-box { padding: 40px 25px; }
-        }
-    </style>
-</head>
-<body>
+         /* Phần kết trang (Footer) */
+         footer {
+            background: var(--primary);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 60px 24px;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+         }
+         footer h3 {
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+         }
+         footer p {
+            font-size: 1.1rem;
+            font-weight: 300;
+         }
 
-    <!-- Thanh Menu -->
-    <nav>
-        <a href="#home">Trang Chủ</a>
-        <a href="#story">Cặp Đôi</a>
-        <a href="#event">Lễ Cưới</a>
-        <a href="#rsvp">Xác Nhận</a>
-        <a href="#gift">Mừng Cưới</a>
-    </nav>
+         /* Thiết kế tương thích hoàn hảo cho điện thoại (Responsive Mobile) */
+         @media (max-width: 768px) {
+            nav {
+               gap: 15px;
+               padding: 15px;
+            }
+            nav a {
+               font-size: 0.65rem;
+               letter-spacing: 1px;
+            }
+            .hero h1 {
+               font-size: 2.8rem;
+            }
+            section {
+               padding: 80px 20px;
+            }
+            .story-grid {
+               flex-direction: column;
+               gap: 40px;
+            }
+            .story-img,
+            .story-content {
+               width: 100%;
+               text-align: center;
+            }
+            .story-img {
+               height: 350px;
+            }
+            .event-card {
+               width: 100%;
+               padding: 40px 25px;
+            }
+            .rsvp-box {
+               padding: 40px 25px;
+            }
+         }
+      </style>
+   </head>
+   <body>
+      <!-- Thanh Menu -->
+      <nav>
+         <a href="#home">Trang Chủ</a>
+         <a href="#story">Cặp Đôi</a>
+         <a href="#event">Lễ Cưới</a>
+         <a href="#rsvp">Xác Nhận</a>
+         <a href="#gift">Mừng Cưới</a>
+      </nav>
 
-    <!-- Trang mở đầu (Hero Section) -->
-    <div id="home" class="hero">
-        <p class="hero-sub" data-aos="fade-down">The Wedding Celebration of</p>
-        <h1 data-aos="fade-up" data-aos-delay="300">An <span class="serif-italic" style="font-size: 3rem; font-family: 'Cormorant Garamond'; text-transform: lowercase;">&</span> Hoàn</h1>
-        <div class="hero-date" data-aos="zoom-in" data-aos-delay="600">20 . 12 . 2026</div>
-        
-        <!-- Đồng hồ đếm ngược -->
-        <div class="countdown" data-aos="fade-up" data-aos-delay="800">
-            <div class="countdown-item"><span class="countdown-num" id="days">00</span><span class="countdown-label">Ngày</span></div>
-            <div class="countdown-item"><span class="countdown-num" id="hours">00</span><span class="countdown-label">Giờ</span></div>
-            <div class="countdown-item"><span class="countdown-num" id="minutes">00</span><span class="countdown-label">Phút</span></div>
-            <div class="countdown-item"><span class="countdown-num" id="seconds">00</span><span class="countdown-label">Giây</span></div>
-        </div>
-    </div>
+      <!-- Trang mở đầu (Hero Section) -->
+      <div id="home" class="hero">
+         <p class="hero-sub" data-aos="fade-down">The Wedding Celebration of</p>
+         <h1 data-aos="fade-up" data-aos-delay="300">
+            An
+            <span
+               class="serif-italic"
+               style="
+                  font-size: 3rem;
+                  font-family: &quot;Cormorant Garamond&quot;;
+                  text-transform: lowercase;
+               "
+               >&</span
+            >
+            Hoàn
+         </h1>
+         <div class="hero-date" data-aos="zoom-in" data-aos-delay="600">
+            20 . 12 . 2026
+         </div>
 
-    <section id="story">
-        <div class="section-header" data-aos="fade-up">
+         <!-- Đồng hồ đếm ngược -->
+         <div class="countdown" data-aos="fade-up" data-aos-delay="800">
+            <div class="countdown-item">
+               <span class="countdown-num" id="days">00</span
+               ><span class="countdown-label">Ngày</span>
+            </div>
+            <div class="countdown-item">
+               <span class="countdown-num" id="hours">00</span
+               ><span class="countdown-label">Giờ</span>
+            </div>
+            <div class="countdown-item">
+               <span class="countdown-num" id="minutes">00</span
+               ><span class="countdown-label">Phút</span>
+            </div>
+            <div class="countdown-item">
+               <span class="countdown-num" id="seconds">00</span
+               ><span class="countdown-label">Giây</span>
+            </div>
+         </div>
+      </div>
+
+      <section id="story">
+         <div class="section-header" data-aos="fade-up">
             <h2>Our Story</h2>
             <div class="divider"></div>
-        </div>
-        <div class="story-grid">
+         </div>
+         <div class="story-grid">
             <div class="story-img" data-aos="fade-right"></div>
             <div class="story-content" data-aos="fade-left">
-                <h3 style="margin-bottom: 20px;">Hành Trình Gắn Kết</h3>
-                <p>Mọi câu chuyện tình yêu đều mang một vẻ đẹp riêng biệt, nhưng câu chuyện của chúng tôi là chương nhạc ngọt ngào và đáng trân trọng nhất. Không bắt đầu bằng những lời hoa mỹ, tình yêu của An và Hoàn lớn lên từ sự đồng điệu, chở che và thấu hiểu qua từng ngày chung bước.</p>
-                <p class="serif-italic" style="color: var(--gold); font-size: 1.4rem;">"Được cùng nhau già đi, đó chính là món quà xa xỉ nhất của cuộc đời."</p>
+               <h3 style="margin-bottom: 20px">Hành Trình Gắn Kết</h3>
+               <p>
+                  Mọi câu chuyện tình yêu đều mang một vẻ đẹp riêng biệt, nhưng
+                  câu chuyện của chúng tôi là chương nhạc ngọt ngào và đáng trân
+                  trọng nhất. Không bắt đầu bằng những lời hoa mỹ, tình yêu của
+                  An và Hoàn lớn lên từ sự đồng điệu, chở che và thấu hiểu qua
+                  từng ngày chung bước.
+               </p>
+               <p
+                  class="serif-italic"
+                  style="color: var(--gold); font-size: 1.4rem"
+               >
+                  "Được cùng nhau già đi, đó chính là món quà xa xỉ nhất của
+                  cuộc đời."
+               </p>
             </div>
-        </div>
-    </section>
+         </div>
+      </section>
 
-    <section id="event" style="background-color: #f7f6f2;">
-        <div class="section-header" data-aos="fade-up">
+      <section id="event" style="background-color: #f7f6f2">
+         <div class="section-header" data-aos="fade-up">
             <h2>Wedding Events</h2>
             <div class="divider"></div>
-        </div>
-        <div class="event-container">
+         </div>
+         <div class="event-container">
             <div class="event-card" data-aos="fade-up" data-aos-delay="200">
-                <h3>Lễ Thành Hôn</h3>
-                <div class="event-time">09:00</div>
-                <p class="event-detail serif-italic">Chủ Nhật, ngày 20 tháng 12 năm 2026</p>
-                <div class="event-address">
-                    <p><b>Tư Gia Nhà Trai</b></p>
-                    <p style="color: var(--text-light); margin-top: 5px;">Số 123 Đường Từ Liêm, Hà Nội</p>
-                </div>
+               <h3>Lễ Thành Hôn</h3>
+               <div class="event-time">09:00</div>
+               <p class="event-detail serif-italic">
+                  Chủ Nhật, ngày 20 tháng 12 năm 2026
+               </p>
+               <div class="event-address">
+                  <p><b>Tư Gia Nhà Trai</b></p>
+                  <p style="color: var(--text-light); margin-top: 5px">
+                     Số 123 Đường Từ Liêm, Hà Nội
+                  </p>
+               </div>
             </div>
             <div class="event-card" data-aos="fade-up" data-aos-delay="400">
-                <h3>Tiệc Cưới Chính</h3>
-                <div class="event-time">11:30</div>
-                <p class="event-detail serif-italic">Chủ Nhật, ngày 20 tháng 12 năm 2026</p>
-                <div class="event-address">
-                    <p><b>Trung Tâm Sự Kiện Trống Đồng</b></p>
-                    <p style="color: var(--text-light); margin-top: 5px;">Sảnh Gold - Số 456 Lạc Long Quân, Tây Hồ, Hà Nội</p>
-                </div>
+               <h3>Tiệc Cưới Chính</h3>
+               <div class="event-time">11:30</div>
+               <p class="event-detail serif-italic">
+                  Chủ Nhật, ngày 20 tháng 12 năm 2026
+               </p>
+               <div class="event-address">
+                  <p><b>Trung Tâm Sự Kiện Trống Đồng</b></p>
+                  <p style="color: var(--text-light); margin-top: 5px">
+                     Sảnh Gold - Số 456 Lạc Long Quân, Tây Hồ, Hà Nội
+                  </p>
+               </div>
             </div>
-        </div>
-    </section>
+         </div>
+      </section>
 
-    <section id="rsvp">
-        <div class="section-header" data-aos="fade-up">
+      <section id="rsvp">
+         <div class="section-header" data-aos="fade-up">
             <h2>R.S.V.P</h2>
             <div class="divider"></div>
-        </div>
-        <div class="rsvp-box" data-aos="zoom-in">
+         </div>
+         <div class="rsvp-box" data-aos="zoom-in">
             <form class="rsvp-form" action="#">
-                <p style="text-align: center; color: var(--text-light); margin-bottom: 20px;" class="serif-italic">Để thuận tiện cho việc đón tiếp chu đáo nhất, xin vui lòng phản hồi trước ngày 10.12.2026.</p>
-                
-                <div class="form-group">
-                    <label>Danh xưng / Họ tên của bạn</label>
-                    <input type="text" placeholder="Ví dụ: Anh Nguyễn Văn A..." required>
-                </div>
+               <p
+                  style="
+                     text-align: center;
+                     color: var(--text-light);
+                     margin-bottom: 20px;
+                  "
+                  class="serif-italic"
+               >
+                  Để thuận tiện cho việc đón tiếp chu đáo nhất, xin vui lòng
+                  phản hồi trước ngày 10.12.2026.
+               </p>
 
-                <div class="form-group">
-                    <label>Bạn là khách mời của</label>
-                    <select required>
-                        <option value="">-- Vui lòng chọn bên nhận phản hồi --</option>
-                        <option value="an">Chú rể An</option>
-                        <option value="hoan">Cô dâu Hoàn</option>
-                    </select>
-                </div>
+               <div class="form-group">
+                  <label>Danh xưng / Họ tên của bạn</label>
+                  <input
+                     type="text"
+                     placeholder="Ví dụ: Anh Nguyễn Văn A..."
+                     required
+                  />
+               </div>
 
-                <div class="form-group">
-                    <label>Sự hiện diện của bạn</label>
-                    <select required>
-                        <option value="">-- Bạn sẽ đến chung vui chứ? --</option>
-                        <option value="yes">Chắc chắn tham dự</option>
-                        <option value="no">Rất tiếc không thể đến</option>
-                    </select>
-                </div>
+               <div class="form-group">
+                  <label>Bạn là khách mời của</label>
+                  <select required>
+                     <option value="">
+                        -- Vui lòng chọn bên nhận phản hồi --
+                     </option>
+                     <option value="an">Chú rể An</option>
+                     <option value="hoan">Cô dâu Hoàn</option>
+                  </select>
+               </div>
 
-                <button type="submit" class="btn-gold">Xác Nhận Tham Dự</button>
+               <div class="form-group">
+                  <label>Sự hiện diện của bạn</label>
+                  <select required>
+                     <option value="">-- Bạn sẽ đến chung vui chứ? --</option>
+                     <option value="yes">Chắc chắn tham dự</option>
+                     <option value="no">Rất tiếc không thể đến</option>
+                  </select>
+               </div>
+
+               <button type="submit" class="btn-gold">Xác Nhận Tham Dự</button>
             </form>
-        </div>
-    </section>
+         </div>
+      </section>
 
-    <section id="gift">
-        <div class="section-header" data-aos="fade-up">
+      <section id="gift">
+         <!-- Cấu trúc HTML phần Wedding Registry cập nhật tài khoản Chú Rể -->
+         <div class="wedding-registry">
             <h2>Wedding Registry</h2>
-            <div class="divider"></div>
-        </div>
-        <div class="gift-grid">
-            <div class="gift-card" data-aos="fade-up" data-aos-delay="200">
-                <h4>Chú Rể An</h4>
-                <div class="qr-code">[ QR Ngân Hàng ]</div>
-                <div class="gift-info">
-                    <p><b>Vietcombank</b></p>
-                    <p>STK: 123456789</p>
-                    <p>CTK: NGUYEN VI AN</p>
-                </div>
+
+            <!-- Hộp quà Chú Rể An (ĐÃ CẬP NHẬT) -->
+            <div class="gift-box">
+               <h4>Chú Rể An</h4>
+               <div
+                  class="qr-container"
+                  style="text-align: center; margin: 15px 0"
+               >
+                  <!-- Sử dụng VietQR API tự động tạo mã QR mới cho Techcombank -->
+                  <img
+                     src="https://vietqr.io"
+                     alt="QR Mừng Cưới Chú Rể An"
+                     style="
+                        max-width: 220px;
+                        width: 100%;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                     "
+                  />
+               </div>
+               <p><strong>Techcombank</strong></p>
+               <p>STK: 0335885529</p>
+               <p>CTK: NGO VI AN</p>
             </div>
-            <div class="gift-card" data-aos="fade-up" data-aos-delay="400">
-                <h4>Cô Dâu Hoàn</h4>
-                <div class="qr-code">[ QR Ngân Hàng ]</div>
-                <div class="gift-info">
-                    <p><b>Techcombank</b></p>
-                    <p>STK: 987654321</p>
-                    <p>CTK: LE THI HOAN</p>
-                </div>
+
+            <!-- Hộp quà Cô Dâu Hoàn (GIỮ NGUYÊN) -->
+            <div class="gift-box">
+               <h4>Cô Dâu Hoàn</h4>
+               <div
+                  class="qr-container"
+                  style="text-align: center; margin: 15px 0"
+               >
+                  <img
+                     src="https://vietqr.io"
+                     alt="QR Mừng Cưới Cô Dâu Hoàn"
+                     style="
+                        max-width: 220px;
+                        width: 100%;
+                        border-radius: 8px;
+                        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                     "
+                  />
+               </div>
+               <p><strong>Techcombank</strong></p>
+               <p>STK: 987654321</p>
+               <p>CTK: LE THI HOAN</p>
             </div>
-        </div>
-    </section>
+         </div>
+      </section>
 
-    <footer>
-        <h3>An & Hoàn</h3>
-        <p class="serif-italic">Sự hiện diện của bạn là món quà hạnh phúc lớn nhất đối với chúng tôi!</p>
-    </footer>
+      <footer>
+         <h3>An & Hoàn</h3>
+         <p class="serif-italic">
+            Sự hiện diện của bạn là món quà hạnh phúc lớn nhất đối với chúng
+            tôi!
+         </p>
+      </footer>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        // Kích hoạt thư viện chuyển động mượt mà AOS
-        AOS.init({ duration: 1000, once: true });
+      <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+      <script>
+         // Kích hoạt thư viện chuyển động mượt mà AOS
+         AOS.init({ duration: 1000, once: true });
 
-        // Thiết lập đồng hồ đếm ngược (Mục tiêu 20/12/2026)
-        const targetDate = new Date("Dec 20, 2026 09:00:00").getTime();
+         // Thiết lập đồng hồ đếm ngược (Mục tiêu 20/12/2026)
+         const targetDate = new Date("Dec 20, 2026 09:00:00").getTime();
 
-        const countdownFunc = setInterval(function() {
+         const countdownFunc = setInterval(function () {
             const now = new Date().getTime();
             const distance = targetDate - now;
 
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const hours = Math.floor(
+               (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+            );
+            const minutes = Math.floor(
+               (distance % (1000 * 60 * 60)) / (1000 * 60),
+            );
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerText = days < 10 ? "0" + days : days;
-            document.getElementById("hours").innerText = hours < 10 ? "0" + hours : hours;
-            document.getElementById("minutes").innerText = minutes < 10 ? "0" + minutes : minutes;
-            document.getElementById("seconds").innerText = seconds < 10 ? "0" + seconds : seconds;
+            document.getElementById("days").innerText =
+               days < 10 ? "0" + days : days;
+            document.getElementById("hours").innerText =
+               hours < 10 ? "0" + hours : hours;
+            document.getElementById("minutes").innerText =
+               minutes < 10 ? "0" + minutes : minutes;
+            document.getElementById("seconds").innerText =
+               seconds < 10 ? "0" + seconds : seconds;
 
             if (distance < 0) {
-                clearInterval(countdownFunc);
-                document.querySelector(".countdown").innerHTML = "<p style='font-family:Cinzel; font-size:1.2rem; color:var(--gold);'>Our Special Day Has Arrived!</p>";
+               clearInterval(countdownFunc);
+               document.querySelector(".countdown").innerHTML =
+                  "<p style='font-family:Cinzel; font-size:1.2rem; color:var(--gold);'>Our Special Day Has Arrived!</p>";
             }
-        }, 1000);
-    </script>
-</body>
+         }, 1000);
+      </script>
+   </body>
 </html>
