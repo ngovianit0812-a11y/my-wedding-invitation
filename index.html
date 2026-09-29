@@ -440,17 +440,41 @@
    </head>
    <body>
       <!-- Nút điều khiển Bật/Tắt nhạc (Thiết kế đĩa nhạc ghim ở góc dưới bên phải) -->
-<div id="music-control" onclick="toggleMusic()" style="position: fixed; bottom: 25px; right: 25px; z-index: 9999; cursor: pointer;">
-    <div class="music-icon" style="background: rgba(255, 255, 255, 0.9); padding: 12px; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.2); width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease;">
-        <span id="music-status-icon" style="font-size: 20px;">🎵</span>
-    </div>
-</div>
+      <div
+         id="music-control"
+         onclick="toggleMusic()"
+         style="
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 9999;
+            cursor: pointer;
+         "
+      >
+         <div
+            class="music-icon"
+            style="
+               background: rgba(255, 255, 255, 0.9);
+               padding: 12px;
+               border-radius: 50%;
+               box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+               width: 28px;
+               height: 28px;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+               transition: transform 0.3s ease;
+            "
+         >
+            <span id="music-status-icon" style="font-size: 20px">🎵</span>
+         </div>
+      </div>
 
-<!-- Trình phát nhạc ẩn - Đã nhúng link online bài Beautiful In White -->
-<audio id="wedding-audio" loop prefetch="auto">
-    <source src="https://archive.org" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ phát âm thanh.
-</audio>
+      <!-- Trình phát nhạc ẩn - Đã nhúng link online bài Beautiful In White -->
+      <audio id="wedding-audio" loop prefetch="auto">
+         <source src="https://archive.org" type="audio/mpeg" />
+         Trình duyệt của bạn không hỗ trợ phát âm thanh.
+      </audio>
       <!-- Thanh Menu -->
       <nav>
          <a href="#home">Trang Chủ</a>
@@ -617,43 +641,58 @@
       </section>
 
       <section id="gift">
-    <div class="section-header" data-aos="fade-up">
-        <h2>Wedding Registry</h2>
-        <div class="divider"></div>
-    </div>
-    <div class="gift-grid">
-        <!-- Khối thông tin Chú Rể An (Đã cập nhật TK mới và thêm ảnh QR) -->
-        <div class="gift-card" data-aos="fade-up" data-aos-delay="200">
-            <h4>Chú Rể An</h4>
-            <div class="qr-code">
-                <img src="https://vietqr.io" 
-                     alt="QR Mừng Cưới Chú Rể An" 
-                     style="max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
+         <div class="section-header" data-aos="fade-up">
+            <h2>Wedding Registry</h2>
+            <div class="divider"></div>
+         </div>
+         <div class="gift-grid">
+            <!-- Khối thông tin Chú Rể An (Đã cập nhật TK mới và thêm ảnh QR) -->
+            <div class="gift-card" data-aos="fade-up" data-aos-delay="200">
+               <h4>Chú Rể An</h4>
+               <div class="qr-code">
+                  <img
+                     src="https://vietqr.io"
+                     alt="QR Mừng Cưới Chú Rể An"
+                     style="
+                        max-width: 100%;
+                        height: auto;
+                        display: block;
+                        margin: 0 auto;
+                        border-radius: 8px;
+                     "
+                  />
+               </div>
+               <div class="gift-info">
+                  <p><b>Techcombank</b></p>
+                  <p>STK: 0335885529</p>
+                  <p>CTK: NGO VI AN</p>
+               </div>
             </div>
-            <div class="gift-info">
-                <p><b>Techcombank</b></p>
-                <p>STK: 0335885529</p>
-                <p>CTK: NGO VI AN</p>
-            </div>
-        </div>
-        
-        <!-- Khối thông tin Cô Dâu Hoàn (Đã thêm ảnh QR) -->
-        <div class="gift-card" data-aos="fade-up" data-aos-delay="400">
-            <h4>Cô Dâu Hoàn</h4>
-            <div class="qr-code">
-                <img src="https://vietqr.io" 
-                     alt="QR Mừng Cưới Cô Dâu Hoàn" 
-                     style="max-width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
-            </div>
-            <div class="gift-info">
-                <p><b>Techcombank</b></p>
-                <p>STK: 987654321</p>
-                <p>CTK: LE THI HOAN</p>
-            </div>
-        </div>
-    </div>
-</section>
 
+            <!-- Khối thông tin Cô Dâu Hoàn (Đã thêm ảnh QR) -->
+            <div class="gift-card" data-aos="fade-up" data-aos-delay="400">
+               <h4>Cô Dâu Hoàn</h4>
+               <div class="qr-code">
+                  <img
+                     src="https://vietqr.io"
+                     alt="QR Mừng Cưới Cô Dâu Hoàn"
+                     style="
+                        max-width: 100%;
+                        height: auto;
+                        display: block;
+                        margin: 0 auto;
+                        border-radius: 8px;
+                     "
+                  />
+               </div>
+               <div class="gift-info">
+                  <p><b>Techcombank</b></p>
+                  <p>STK: 987654321</p>
+                  <p>CTK: LE THI HOAN</p>
+               </div>
+            </div>
+         </div>
+      </section>
 
       <footer>
          <h3>An & Hoàn</h3>
@@ -702,45 +741,56 @@
       </script>
    </body>
    <script>
-    const audio = document.getElementById('wedding-audio');
-    const icon = document.getElementById('music-status-icon');
-    const controlBtn = document.getElementById('music-control');
-    let isPlaying = false;
+      const audio = document.getElementById("wedding-audio");
+      const icon = document.getElementById("music-status-icon");
+      const controlBtn = document.getElementById("music-control");
+      let isPlaying = false;
 
-    // 1. Hàm bật / tắt nhạc chủ động khi bấm nút
-    function toggleMusic() {
-        if (isPlaying) {
+      // 1. Hàm bật / tắt nhạc chủ động khi bấm nút
+      function toggleMusic() {
+         if (isPlaying) {
             audio.pause();
-            icon.innerText = "🔇"; 
+            icon.innerText = "🔇";
             controlBtn.style.animation = "none"; // Dừng xoay nút
             isPlaying = false;
-        } else {
-            audio.play().then(() => {
-                icon.innerText = "🎵"; 
-                isPlaying = true;
-            }).catch(error => console.log("Lỗi trình duyệt chặn âm thanh: ", error));
-        }
-    }
+         } else {
+            audio
+               .play()
+               .then(() => {
+                  icon.innerText = "🎵";
+                  isPlaying = true;
+               })
+               .catch((error) =>
+                  console.log("Lỗi trình duyệt chặn âm thanh: ", error),
+               );
+         }
+      }
 
-    // 2. Kích hoạt phát tự động ngay khi khách tương tác (cuộn/click) lần đầu vào thiệp cưới
-    function autoPlayOnInteraction() {
-        if (!isPlaying) {
-            audio.play().then(() => {
-                isPlaying = true;
-                icon.innerText = "🎵";
-                // Gỡ bỏ sự kiện sau khi kích hoạt thành công để tiết kiệm hiệu năng
-                document.removeEventListener('click', autoPlayOnInteraction);
-                document.removeEventListener('touchstart', autoPlayOnInteraction);
-                document.removeEventListener('scroll', autoPlayOnInteraction);
-            }).catch(error => {
-                console.log("Đợi khách tương tác thêm để phát nhạc...");
-            });
-        }
-    }
+      // 2. Kích hoạt phát tự động ngay khi khách tương tác (cuộn/click) lần đầu vào thiệp cưới
+      function autoPlayOnInteraction() {
+         if (!isPlaying) {
+            audio
+               .play()
+               .then(() => {
+                  isPlaying = true;
+                  icon.innerText = "🎵";
+                  // Gỡ bỏ sự kiện sau khi kích hoạt thành công để tiết kiệm hiệu năng
+                  document.removeEventListener("click", autoPlayOnInteraction);
+                  document.removeEventListener(
+                     "touchstart",
+                     autoPlayOnInteraction,
+                  );
+                  document.removeEventListener("scroll", autoPlayOnInteraction);
+               })
+               .catch((error) => {
+                  console.log("Đợi khách tương tác thêm để phát nhạc...");
+               });
+         }
+      }
 
-    // Lắng nghe tất cả các thao tác vuốt màn hình, chạm trên điện thoại của khách để mở nhạc tự động
-    document.addEventListener('click', autoPlayOnInteraction);
-    document.addEventListener('touchstart', autoPlayOnInteraction);
-    document.addEventListener('scroll', autoPlayOnInteraction);
-</script>
+      // Lắng nghe tất cả các thao tác vuốt màn hình, chạm trên điện thoại của khách để mở nhạc tự động
+      document.addEventListener("click", autoPlayOnInteraction);
+      document.addEventListener("touchstart", autoPlayOnInteraction);
+      document.addEventListener("scroll", autoPlayOnInteraction);
+   </script>
 </html>
