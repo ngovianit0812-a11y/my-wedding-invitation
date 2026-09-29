@@ -439,7 +439,7 @@
       </style>
    </head>
    <body>
-      <!-- Nút điều khiển Bật/Tắt nhạc ghim ở góc dưới bên phải -->
+      <!-- Nút điều khiển Bật/Tắt nhạc thiết kế ghim cố định ở góc dưới bên phải -->
       <div
          id="music-control"
          onclick="toggleMusic()"
@@ -469,14 +469,11 @@
          </div>
       </div>
 
-      <!-- Trình phát nhạc với đường link CDN mới, có thêm thanh điều khiển (controls) để bạn kiểm tra thử -->
-      <!-- Sau khi trang web chạy tốt, bạn có thể xóa chữ "controls" đi để ẩn thanh này -->
-      <div style="position: fixed; bottom: 80px; right: 25px; z-index: 9999">
-         <audio id="wedding-audio" controls loop preload="auto">
-            <source src="https://audio.com" type="audio/mpeg" />
-            Trình duyệt của bạn không hỗ trợ phát âm thanh.
-         </audio>
-      </div>
+      <!-- Trình phát nhạc gọi file nội bộ trong máy giúp tải cực nhanh và ổn định 100% -->
+      <audio id="wedding-audio" loop preload="auto">
+         <source src="Beautiful_In_White.mp3" type="audio/mpeg" />
+         Trình duyệt của bạn không hỗ trợ phát âm thanh.
+      </audio>
       <!-- Thanh Menu -->
       <nav>
          <a href="#home">Trang Chủ</a>
@@ -746,7 +743,7 @@
          const icon = document.getElementById("music-status-icon");
          let isPlaying = false;
 
-         // Hàm bật / tắt nhạc khi click trực tiếp vào nút icon
+         // Hàm bật / tắt nhạc khi khách click trực tiếp vào nút icon 🎵
          function toggleMusic() {
             if (isPlaying) {
                audio.pause();
@@ -759,11 +756,13 @@
                      icon.innerText = "🎵";
                      isPlaying = true;
                   })
-                  .catch((error) => alert("Không thể phát nhạc: " + error));
+                  .catch((error) => {
+                     console.log("Lỗi phát nhạc: ", error);
+                  });
             }
          }
 
-         // Tự động phát khi khách cuộn trang hoặc chạm màn hình lần đầu
+         // Tự động kích hoạt nhạc ngay khi khách cuộn trang hoặc chạm tay vào màn hình lần đầu
          function triggerAutoPlay() {
             if (!isPlaying) {
                audio
@@ -774,8 +773,9 @@
                      removeInteractionListeners();
                   })
                   .catch((error) => {
+                     // Nếu trình duyệt vẫn chặn nghiêm ngặt, hệ thống sẽ đợi khách bấm nút 🎵
                      console.log(
-                        "Trình duyệt vẫn đang chặn phát tự động, chờ khách bấm nút.",
+                        "Trình duyệt chặn Autoplay, chờ khách click nút.",
                      );
                   });
             }
@@ -787,7 +787,7 @@
             document.removeEventListener("scroll", triggerAutoPlay);
          }
 
-         // Đăng ký tương tác người dùng để kích hoạt âm thanh
+         // Đăng ký các sự kiện tương tác để mở nhạc tự động
          document.addEventListener("click", triggerAutoPlay);
          document.addEventListener("touchstart", triggerAutoPlay);
          document.addEventListener("scroll", triggerAutoPlay);
