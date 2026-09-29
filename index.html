@@ -625,7 +625,8 @@
             <div class="divider"></div>
          </div>
          <div class="rsvp-box" data-aos="zoom-in">
-            <form class="rsvp-form" action="#">
+            <!-- Đã thêm id cho Form để xử lý JavaScript -->
+            <form class="rsvp-form" id="wedding-rsvp-form">
                <p
                   style="
                      text-align: center;
@@ -640,8 +641,10 @@
 
                <div class="form-group">
                   <label>Danh xưng / Họ tên của bạn</label>
+                  <!-- Đã thêm name="hoten" -->
                   <input
                      type="text"
+                     name="hoten"
                      placeholder="Ví dụ: Anh Nguyễn Văn A..."
                      required
                   />
@@ -649,21 +652,27 @@
 
                <div class="form-group">
                   <label>Bạn là khách mời của</label>
-                  <select required>
+                  <!-- Đã thêm name="khachcua" -->
+                  <select name="khachcua" required>
                      <option value="">
                         -- Vui lòng chọn bên nhận phản hồi --
                      </option>
-                     <option value="an">Chú rể An</option>
-                     <option value="hoan">Cô dâu Hoàn</option>
+                     <option value="Chú rể An">Chú rể An</option>
+                     <option value="Cô dâu Hoàn">Cô dâu Hoàn</option>
                   </select>
                </div>
 
                <div class="form-group">
                   <label>Sự hiện diện của bạn</label>
-                  <select required>
+                  <!-- Đã thêm name="thamdu" -->
+                  <select name="thamdu" required>
                      <option value="">-- Bạn sẽ đến chung vui chứ? --</option>
-                     <option value="yes">Chắc chắn tham dự</option>
-                     <option value="no">Rất tiếc không thể đến</option>
+                     <option value="Chắc chắn tham dự">
+                        Chắc chắn tham dự
+                     </option>
+                     <option value="Rất tiếc không thể đến">
+                        Rất tiếc không thể đến
+                     </option>
                   </select>
                </div>
 
@@ -835,6 +844,48 @@
          document.addEventListener("mousemove", triggerMusicOnScroll, {
             passive: true,
          });
+      </script>
+      <script>
+         // Bạn sẽ thay link Web App của Google Sheets lấy ở Bước 3 vào đây nhé!
+         const GOOGLE_SHEET_URL = "https://docs.google.com/spreadsheets/d/1QH-79LV5K1Hd1ttURjgA8tqW8XvEpfI9Nc69k7ILvDM/edit?usp=sharing";
+
+         document
+            .getElementById("wedding-rsvp-form")
+            .addEventListener("submit", function (e) {
+               e.preventDefault(); // Ngăn chặn trang web bị load lại khi bấm nút
+
+               const form = e.target;
+               const submitBtn = form.querySelector(".btn-gold");
+               const originalBtnText = submitBtn.innerText;
+
+               // Trạng thái chờ khi đang gửi dữ liệu
+               submitBtn.innerText = "⏳ Đang gửi phản hồi...";
+               submitBtn.disabled = true;
+
+               // Thu thập thông tin tự động từ các thẻ có thuộc tính 'name'
+               const formData = new FormData(form);
+
+               fetch(GOOGLE_SHEET_URL, {
+                  method: "POST",
+                  body: formData,
+                  mode: "no-cors", // Chống lỗi bảo mật chặn tên miền (CORS) của trình duyệt
+               })
+                  .then(() => {
+                     alert(
+                        "🎉 Cảm ơn bạn! Phản hồi RSVP của bạn đã được gửi đi thành công.",
+                     );
+                     form.reset(); // Xóa trắng form để khách tiếp theo nhập
+                  })
+                  .catch((error) => {
+                     alert("❌ Có lỗi hệ thống xảy ra, vui lòng thử lại sau.");
+                     console.error("Error:", error);
+                  })
+                  .finally(() => {
+                     // Trả nút bấm về trạng thái ban đầu
+                     submitBtn.innerText = originalBtnText;
+                     submitBtn.disabled = false;
+                  });
+            });
       </script>
    </body>
 </html>
