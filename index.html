@@ -584,6 +584,166 @@
          </div>
       </section>
 
+      <!DOCTYPE html>
+      <html lang="vi">
+         <head>
+            <meta charset="UTF-8" />
+            <meta
+               name="viewport"
+               content="width=device-width, initial-scale=1.0"
+            />
+            <title>Tiệc Cưới và Lễ Thành Hôn</title>
+            <link href="https://googleapis.com" rel="stylesheet" />
+            <style>
+               * {
+                  box-sizing: border-box;
+                  margin: 0;
+                  padding: 0;
+               }
+               body {
+                  font-family: "Quicksand", sans-serif;
+                  background-color: #f4f4f4;
+                  /* Giả lập nền giấy texture của ảnh mẫu */
+                  background-image: radial-gradient(
+                        rgba(0, 0, 0, 0.03) 1px,
+                        transparent 0
+                     ),
+                     radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 0);
+                  background-size: 8px 8px;
+                  background-position:
+                     0 0,
+                     4px 4px;
+                  padding: 40px 20px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+               }
+               .wedding-schedule {
+                  width: 100%;
+                  max-width: 550px;
+                  text-align: center;
+               }
+               .main-title {
+                  font-family: "Playfair Display", serif;
+                  color: #0d381e;
+                  font-size: 2rem;
+                  font-weight: 500;
+                  margin-bottom: 35px;
+               }
+               .card {
+                  background-color: #033c1c;
+                  color: #ffffff;
+                  border-radius: 8px;
+                  padding: 25px 20px;
+                  margin-bottom: 25px;
+                  text-align: left;
+                  position: relative;
+                  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+                  overflow: hidden;
+                  display: flex;
+                  justify-content: space-between;
+               }
+               .card-content {
+                  flex: 1;
+                  padding-right: 15px;
+               }
+               .card-title {
+                  font-size: 1.3rem;
+                  font-weight: 600;
+                  margin-bottom: 15px;
+                  text-decoration: underline;
+                  text-underline-offset: 4px;
+               }
+               .info-item {
+                  display: flex;
+                  align-items: flex-start;
+                  margin-bottom: 12px;
+                  font-size: 0.95rem;
+                  line-height: 1.4;
+                  color: #e0e0e0;
+               }
+               .info-item .icon {
+                  margin-right: 10px;
+                  margin-top: 2px;
+                  flex-shrink: 0;
+               }
+               .card-image {
+                  width: 130px;
+                  height: 90px;
+                  object-fit: cover;
+                  border-radius: 4px;
+                  margin-top: 5px;
+               }
+               @media (max-width: 480px) {
+                  .card {
+                     flex-direction: column-reverse;
+                  }
+                  .card-image {
+                     width: 100%;
+                     height: 150px;
+                     margin-top: 0;
+                     margin-bottom: 15px;
+                  }
+                  .card-content {
+                     padding-right: 0;
+                  }
+               }
+            </style>
+         </head>
+         <body>
+            <div class="wedding-schedule">
+               <h2 class="main-title">Tiệc Cưới và Lễ Thành Hôn</h2>
+
+               <!-- Tiệc Cưới Nhà Trai -->
+               <div class="card">
+                  <div class="card-content">
+                     <h3 class="card-title">Tiệc Cưới Nhà Trai</h3>
+                     <div class="info-item">
+                        <span class="icon">🕒</span>
+                        <div>11h00 Thứ 5, ngày 05/06/2025</div>
+                     </div>
+                     <div class="info-item">
+                        <span class="icon">📍</span>
+                        <div>
+                           Tầng 4, Selegend Hotel<br />Số 36 Quang Trung, Trần
+                           Hưng Đạo, Thái Bình
+                        </div>
+                     </div>
+                  </div>
+                  <!-- Bạn có thể thay link ảnh placeholder bằng ảnh thực tế của bạn -->
+                  <img
+                     class="card-image"
+                     src="https://unsplash.com"
+                     alt="Tiệc cưới nhà trai"
+                  />
+               </div>
+
+               <!-- Tiệc Cưới Nhà Gái -->
+               <div class="card">
+                  <div class="card-content">
+                     <h3 class="card-title">Tiệc Cưới Nhà Gái</h3>
+                     <div class="info-item">
+                        <span class="icon">🕒</span>
+                        <div>10h30 Thứ 4, ngày 04/06/2025</div>
+                     </div>
+                     <div class="info-item">
+                        <span class="icon">📍</span>
+                        <div>
+                           Golden Palace<br />Số 98 Đại Lộ Đông A, KĐT Hòa
+                           Vượng, Nam Định
+                        </div>
+                     </div>
+                  </div>
+                  <img
+                     class="card-image"
+                     src="https://unsplash.com"
+                     alt="Tiệc cưới nhà gái"
+                  />
+               </div>
+            </div>
+         </body>
+      </html>
+
       <section id="event" style="background-color: #f7f6f2">
          <div class="section-header" data-aos="fade-up">
             <h2>Wedding Events</h2>
