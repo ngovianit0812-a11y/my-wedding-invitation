@@ -1022,10 +1022,17 @@
          
 // Hiệu ứng trái tim bay lãng mạn
 function createFloatingHeart() {
+    // Chỉ tạo trái tim khi đã cuộn qua hết Background
+    const hero = document.querySelector(".hero");
+
+    if (hero && hero.getBoundingClientRect().bottom > 0) {
+        return;
+    }
+
     const heart = document.createElement("div");
     heart.className = "floating-heart";
 
-    const hearts = ["💞", "💕", "💗", "🤍", "💖"];
+    const hearts = ["❤️", "💕", "💗", "🤍", "💖"];
     heart.innerText = hearts[
         Math.floor(Math.random() * hearts.length)
     ];
