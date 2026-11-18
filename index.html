@@ -217,34 +217,150 @@
             text-transform: uppercase;
             color: var(--gold);
             margin-top: 8px;
-         }
+         }        
+         
+/* 2. Our Story - Slideshow */
 
-         /* 2. Câu chuyện lãng mạn */
-         .story-grid {
-            display: flex;
-            align-items: center;
-            gap: 60px;
-            text-align: left;
-            margin-top: 40px;
-         }
-         .story-img {
-            width: 45%;
-            height: 500px;
-            background: url("https://images.unsplash.com/photo-1583939003579-730e3918a45a?q=80&w=800")
-               no-repeat center center/cover;
-            border-radius: 4px;
-            box-shadow: 20px 20px 0px 0px var(--gold-light);
-         }
-         .story-content {
-            width: 55%;
-         }
-         .story-content p {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            line-height: 1.9;
-            margin-bottom: 20px;
-            font-weight: 300;
-         }
+.story-slideshow {
+   position: relative;
+   max-width: 850px;
+   margin: 40px auto 0;
+   overflow: hidden;
+   background: var(--primary);
+   box-shadow: 0 15px 40px rgba(28, 44, 34, 0.12);
+}
+
+.story-slide {
+   display: none;
+   position: relative;
+   animation: storyFade 0.8s ease;
+}
+
+.story-slide.active {
+   display: block;
+}
+
+.story-slide img {
+   display: block;
+   width: 100%;
+   height: 520px;
+   object-fit: cover;
+}
+
+.story-caption {
+   background: var(--primary);
+   color: white;
+   padding: 30px 60px 55px;
+   text-align: center;
+}
+
+.story-caption h3 {
+   color: var(--gold);
+   font-size: 1.5rem;
+   margin-bottom: 15px;
+}
+
+.story-caption p {
+   color: rgba(255, 255, 255, 0.85);
+   font-size: 1.2rem;
+   line-height: 1.8;
+}
+
+.story-arrow {
+   position: absolute;
+   top: 40%;
+   transform: translateY(-50%);
+   width: 42px;
+   height: 42px;
+   border: 1px solid rgba(255,255,255,0.7);
+   border-radius: 50%;
+   background: rgba(28, 44, 34, 0.55);
+   color: white;
+   font-size: 18px;
+   cursor: pointer;
+   transition: 0.3s;
+}
+
+.story-arrow:hover {
+   background: var(--gold);
+}
+
+.story-prev {
+   left: 20px;
+}
+
+.story-next {
+   right: 20px;
+}
+
+.story-dots {
+   position: absolute;
+   bottom: 22px;
+   left: 0;
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   gap: 12px;
+}
+
+.story-dot {
+   width: 9px;
+   height: 9px;
+   border-radius: 50%;
+   background: rgba(255,255,255,0.45);
+   cursor: pointer;
+   transition: 0.3s;
+}
+
+.story-dot.active {
+   background: var(--gold);
+   transform: scale(1.3);
+}
+
+@keyframes storyFade {
+   from {
+      opacity: 0.4;
+      transform: scale(1.01);
+   }
+   to {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+/* Hiển thị tốt trên điện thoại */
+@media (max-width: 768px) {
+   .story-slide img {
+      height: 350px;
+   }
+
+   .story-caption {
+      padding: 25px 25px 55px;
+   }
+
+   .story-caption h3 {
+      font-size: 1.15rem;
+   }
+
+   .story-caption p {
+      font-size: 1.05rem;
+   }
+
+   .story-arrow {
+      width: 35px;
+      height: 35px;
+      font-size: 15px;
+   }
+
+   .story-prev {
+      left: 10px;
+   }
+
+   .story-next {
+      right: 10px;
+   }
+}
+
 
          /* 3. Lịch trình sự kiện kiểu thiệp Luxury */
          .event-container {
@@ -586,32 +702,65 @@
          </div>
       </div>
 
-      <section id="story">
-         <div class="section-header" data-aos="fade-up">
-            <h2>Our Story</h2>
-            <div class="divider"></div>
+      
+<section id="story">
+   <div class="section-header" data-aos="fade-up">
+      <h2>Our Story</h2>
+      <div class="divider"></div>
+   </div>
+
+   <div class="story-slideshow" data-aos="fade-up">
+
+      <!-- Slide 1 -->
+      <div class="story-slide active">
+         <img src="./story-1.jpg" alt="Kỷ niệm của An và Hoàn">
+         <div class="story-caption">
+            <h3>Hành Trình Gắn Kết</h3>
+            <p>
+               Mọi câu chuyện tình yêu đều mang một vẻ đẹp riêng biệt.
+               Và câu chuyện của chúng tôi bắt đầu từ những điều giản dị nhất.
+            </p>
          </div>
-         <div class="story-grid">
-            <div class="story-img" data-aos="fade-right"></div>
-            <div class="story-content" data-aos="fade-left">
-               <h3 style="margin-bottom: 20px">Hành Trình Gắn Kết</h3>
-               <p>
-                  Mọi câu chuyện tình yêu đều mang một vẻ đẹp riêng biệt, nhưng
-                  câu chuyện của chúng tôi là chương nhạc ngọt ngào và đáng trân
-                  trọng nhất. Không bắt đầu bằng những lời hoa mỹ, tình yêu của
-                  An và Hoàn lớn lên từ sự đồng điệu, chở che và thấu hiểu qua
-                  từng ngày chung bước.
-               </p>
-               <p
-                  class="serif-italic"
-                  style="color: var(--gold); font-size: 1.4rem"
-               >
-                  "Được cùng nhau già đi, đó chính là món quà xa xỉ nhất của
-                  cuộc đời."
-               </p>
-            </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="story-slide">
+         <img src="./story-2.jpg" alt="Kỷ niệm của An và Hoàn">
+         <div class="story-caption">
+            <h3>Những Khoảnh Khắc Đáng Nhớ</h3>
+            <p>
+               Cảm ơn vì đã xuất hiện, đồng hành và cùng nhau tạo nên
+               những kỷ niệm thật đẹp.
+            </p>
          </div>
-      </section>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="story-slide">
+         <img src="./story-3.jpg" alt="Kỷ niệm của An và Hoàn">
+         <div class="story-caption">
+            <h3>Cùng Nhau Đi Tiếp</h3>
+            <p>
+               Từ hôm nay và mãi về sau, chúng ta sẽ cùng viết tiếp
+               câu chuyện mang tên hạnh phúc.
+            </p>
+         </div>
+      </div>
+
+      <!-- Nút chuyển ảnh -->
+      <button class="story-arrow story-prev" onclick="changeStorySlide(-1)">❮</button>
+      <button class="story-arrow story-next" onclick="changeStorySlide(1)">❯</button>
+
+      <!-- Dấu chấm điều hướng -->
+      <div class="story-dots">
+         <span class="story-dot active" onclick="showStorySlide(0)"></span>
+         <span class="story-dot" onclick="showStorySlide(1)"></span>
+         <span class="story-dot" onclick="showStorySlide(2)"></span>
+      </div>
+
+   </div>
+</section>
+
 
 
       <section id="event" style="background-color: #f7f6f2">
@@ -971,6 +1120,56 @@ function createFloatingHeart() {
 
 // Tạo trái tim mỗi 700ms
 setInterval(createFloatingHeart, 700);
+
+
+
+         
+// OUR STORY SLIDESHOW
+
+let currentStorySlide = 0;
+let storyTimer;
+
+const storySlides = document.querySelectorAll(".story-slide");
+const storyDots = document.querySelectorAll(".story-dot");
+
+function showStorySlide(index) {
+   if (storySlides.length === 0) return;
+
+   if (index >= storySlides.length) {
+      currentStorySlide = 0;
+   } else if (index < 0) {
+      currentStorySlide = storySlides.length - 1;
+   } else {
+      currentStorySlide = index;
+   }
+
+   storySlides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === currentStorySlide);
+   });
+
+   storyDots.forEach((dot, i) => {
+      dot.classList.toggle("active", i === currentStorySlide);
+   });
+
+   resetStoryTimer();
+}
+
+function changeStorySlide(direction) {
+   showStorySlide(currentStorySlide + direction);
+}
+
+function resetStoryTimer() {
+   clearInterval(storyTimer);
+
+   storyTimer = setInterval(() => {
+      showStorySlide(currentStorySlide + 1);
+   }, 5000);
+}
+
+if (storySlides.length > 0) {
+   showStorySlide(0);
+}
+
 
       </script>
    </body>
