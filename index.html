@@ -452,6 +452,35 @@
                padding: 40px 25px;
             }
          }
+         
+/* Hiệu ứng trái tim bay */
+.floating-heart {
+    position: fixed;
+    bottom: -40px;
+    z-index: 9998;
+    pointer-events: none;
+    user-select: none;
+    animation: heartFly linear forwards;
+    filter: drop-shadow(0 2px 3px rgba(0,0,0,0.08));
+}
+
+@keyframes heartFly {
+    0% {
+        transform: translateY(0) rotate(0deg) scale(0.7);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.85;
+    }
+    80% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(35deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
       </style>
    </head>
    <body>
@@ -900,6 +929,31 @@
                      submitBtn.disabled = false;
                   });
             });
+         
+// Hiệu ứng trái tim bay lãng mạn
+function createFloatingHeart() {
+    const heart = document.createElement("div");
+    heart.className = "floating-heart";
+
+    const hearts = ["❤️", "💕", "💗", "🤍", "💖"];
+    heart.innerText = hearts[
+        Math.floor(Math.random() * hearts.length)
+    ];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (12 + Math.random() * 16) + "px";
+    heart.style.animationDuration = (6 + Math.random() * 5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 12000);
+}
+
+// Tạo trái tim mỗi 700ms
+setInterval(createFloatingHeart, 700);
+
       </script>
    </body>
 </html>
