@@ -254,6 +254,57 @@
             flex-wrap: wrap;
             margin-top: 20px;
          }
+         /* Thẻ thông tin gia đình hai bên */
+.family-card {
+    background: white;
+    border: 1px solid rgba(195, 168, 128, 0.3);
+    width: 100%;
+    max-width: 760px;
+    flex: 0 0 100%;
+    margin: 0 auto;
+    padding: 22px 24px;
+    display: flex;
+    align-items: stretch;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.02);
+}
+
+.family-side {
+    width: 50%;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    line-height: 1.45;
+    text-align: center;
+}
+
+.family-side:first-child {
+    border-right: 1px solid rgba(195, 168, 128, 0.5);
+}
+
+.family-side p {
+    margin: 0;
+}
+
+.family-label {
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+.family-side strong {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.family-address {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 3px !important;
+}
+
          .event-card {
             background: white;
             border: 1px solid rgba(195, 168, 128, 0.3);
@@ -451,6 +502,25 @@
             .rsvp-box {
                padding: 40px 25px;
             }
+            .family-card {
+    width: 100%;
+    padding: 18px 8px;
+}
+
+.family-side {
+    padding: 0 10px;
+    font-size: 0.95rem;
+}
+
+.family-side:first-child {
+    border-right: 0;
+    border-bottom: 1px solid rgba(195, 168, 128, 0.5);
+    padding-bottom: 14px;
+}
+
+.family-side:last-child {
+    padding-top: 14px;
+}
          }
          
 /* Hiệu ứng trái tim bay */
@@ -621,6 +691,26 @@
          </div>
          
 <div class="event-container">
+   <!-- Thông tin gia đình hai bên -->
+<div class="family-card" data-aos="fade-up">
+    <div class="family-side">
+        <p class="family-label">Ông</p>
+        <p><strong>Ngô Văn Thường</strong></p>
+        <p class="family-label">Bà</p>
+        <p><strong>Đỗ Thị Ngọc Hằng</strong></p>
+        <p class="family-address">
+            <b>Địa chỉ:</b> Ấp Long An 1, xã Phước Vĩnh Tây, tỉnh Tây Ninh
+        </p>
+    </div>
+
+    <div class="family-side">
+        <p class="family-label">Bà</p>
+        <p><strong>Lê Thị Loan</strong></p>
+        <p class="family-address">
+            <b>Địa chỉ:</b> Thôn Đồng Hòa, xã Gia Hanh, tỉnh Hà Tĩnh
+        </p>
+    </div>
+</div>
     <div class="event-card" data-aos="fade-up" data-aos-delay="200">
         <h3>Lễ Vu Quy</h3>
         <div class="event-time">10:00</div>
@@ -935,7 +1025,7 @@ function createFloatingHeart() {
     const heart = document.createElement("div");
     heart.className = "floating-heart";
 
-    const hearts = ["❤️", "💕", "💗", "🤍", "💖"];
+    const hearts = ["💞", "💕", "💗", "🤍", "💖"];
     heart.innerText = hearts[
         Math.floor(Math.random() * hearts.length)
     ];
