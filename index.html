@@ -1236,6 +1236,22 @@ function resetStoryTimer() {
    startStoryTimer();
 }
 
+// Bắt đầu nhấn giữ: tạm dừng bộ đếm tự chuyển slide
+function startHoldingStory() {
+   if (isStoryHolding) return;
+
+   isStoryHolding = true;
+   stopStoryTimer();
+}
+
+// Kết thúc nhấn giữ: chạy lại bộ đếm đủ 5 giây từ đầu
+function stopHoldingStory() {
+   if (!isStoryHolding) return;
+
+   isStoryHolding = false;
+   resetStoryTimer();
+}
+
 // Theo dõi khi người xem cuộn đến hoặc rời khỏi Our Story
 const storyObserver = new IntersectionObserver((entries) => {
    entries.forEach((entry) => {
@@ -1320,22 +1336,17 @@ if (storySlideshow) {
         isMouseDragging = false;
     });
 }
-          // Buông tay
-    window.addEventListener(
-        "touchend",
-        stopHoldingStory,
-        { passive: true }
-    );
-
-    window.addEventListener(
-        "touchcancel",
-        stopHoldingStory,
-        { passive: true }
-    );
-
-    // Xử lý trường hợp chuyển tab hoặc mất tiêu điểm
-    window.addEventListener("blur", stopHoldingStory);
+ // Nhấn giữ trên ảnh để tạm dừng; dùng Pointer Events cho cả mobile và desktop
+if (storySlideshow) {
+   storySlideshow.addEventListener("pointerdown", startHoldingStory);
 }
+
+// Buông tay/nhả chuột ở bất kỳ đâu cũng kết thúc trạng thái nhấn giữ
+window.addEventListener("pointerup", stopHoldingStory);
+window.addEventListener("pointercancel", stopHoldingStory);
+
+// Xử lý trường hợp chuyển tab hoặc mất tiêu điểm
+window.addEventListener("blur", stopHoldingStory);
 
 // Khởi tạo slide đầu tiên
 showStorySlide(0);
