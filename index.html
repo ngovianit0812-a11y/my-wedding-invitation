@@ -303,31 +303,84 @@
    pointer-events: none;
 }
 
-.story-dots {
-   position: absolute;
-   bottom: 22px;
-   left: 0;
-   width: 100%;
+.story-controls {
+   position: relative;
+   left: auto;
+   bottom: auto;
+   transform: none;
+   z-index: 6;
    display: flex;
+   align-items: center;
    justify-content: center;
-   gap: 12px;
+   gap: 10px;
+   width: fit-content;
+   height: 34px;
+   margin: 10px auto 0;
+}
+
+.story-dots {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 10px;
 }
 
 .story-dot {
+   display: block;
+   flex: 0 0 9px;
    width: 9px;
    height: 9px;
    border-radius: 50%;
-   background: rgba(255,255,255,0.45);
+   background: #888888;
    cursor: pointer;
-   transition: 0.3s;
+   transition: background-color 0.25s ease;
 }
 
 .story-dot.active {
-   background: var(--gold);
-   transform: scale(1.3);
+   background: #c5a15e;
+   transform: none;
 }
 
-         
+/* Mũi tên nhỏ, mảnh và cùng tông vàng với dot đang chọn */
+.story-arrow {
+   position: static;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex: 0 0 12px;
+   width: 12px;
+   height: 20px;
+   padding: 0;
+   border: 0;
+   border-radius: 0;
+   background: transparent;
+   color: #c5a15e;
+   font-family: Arial, sans-serif;
+   font-size: 20px;
+   font-weight: 400;
+   line-height: 1;
+   cursor: pointer;
+   transition: color 0.2s ease, opacity 0.2s ease;
+   -webkit-tap-highlight-color: transparent;
+}
+
+.story-arrow:hover {
+   background: transparent;
+   color: #d8b879;
+   transform: none;
+}
+
+.story-prev,
+.story-next {
+   left: auto;
+   right: auto;
+}
+
+.story-arrow:focus-visible {
+   outline: 1px solid #c5a15e;
+   outline-offset: 2px;
+}
+
 
 @keyframes storyFade {
    from {
@@ -358,19 +411,6 @@
       font-size: 1.05rem;
    }
 
-   .story-arrow {
-      width: 35px;
-      height: 35px;
-      font-size: 15px;
-   }
-
-   .story-prev {
-      left: 10px;
-   }
-
-   .story-next {
-      right: 10px;
-   }
 }
 
 
@@ -788,10 +828,20 @@
       </div>
    </div>
 
-   <div class="story-dots">
-      <span class="story-dot active" onclick="showStorySlide(0)"></span>
-      <span class="story-dot" onclick="showStorySlide(1)"></span>
-      <span class="story-dot" onclick="showStorySlide(2)"></span>
+   <div class="story-controls">
+      <button class="story-arrow story-prev" type="button" aria-label="Ảnh trước"
+         onclick="changeStorySlide(-1)"
+         onpointerdown="event.stopPropagation()" onmousedown="event.stopPropagation()">&#8249;</button>
+
+      <div class="story-dots">
+         <span class="story-dot active" role="button" tabindex="0" aria-label="Ảnh 1" onclick="showStorySlide(0)"></span>
+         <span class="story-dot" role="button" tabindex="0" aria-label="Ảnh 2" onclick="showStorySlide(1)"></span>
+         <span class="story-dot" role="button" tabindex="0" aria-label="Ảnh 3" onclick="showStorySlide(2)"></span>
+      </div>
+
+      <button class="story-arrow story-next" type="button" aria-label="Ảnh tiếp theo"
+         onclick="changeStorySlide(1)"
+         onpointerdown="event.stopPropagation()" onmousedown="event.stopPropagation()">&#8250;</button>
    </div>
 
 </div>
