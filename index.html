@@ -266,31 +266,23 @@
    line-height: 1.8;
 }
 
-.story-arrow {
-   position: absolute;
-   top: 40%;
-   transform: translateY(-50%);
-   width: 42px;
-   height: 42px;
-   border: 1px solid rgba(255,255,255,0.7);
-   border-radius: 50%;
-   background: rgba(28, 44, 34, 0.55);
-   color: white;
-   font-size: 18px;
-   cursor: pointer;
-   transition: 0.3s;
+
+
+/* Cho phép vuốt ngang để chuyển ảnh, vẫn cuộn trang theo chiều dọc */
+.story-slideshow {
+   touch-action: pan-y;
+   user-select: none;
+   -webkit-user-select: none;
+   cursor: grab;
 }
 
-.story-arrow:hover {
-   background: var(--gold);
+.story-slideshow:active {
+   cursor: grabbing;
 }
 
-.story-prev {
-   left: 20px;
-}
-
-.story-next {
-   right: 20px;
+.story-slide img {
+   -webkit-user-drag: none;
+   pointer-events: none;
 }
 
 .story-dots {
@@ -711,54 +703,46 @@
 
    <div class="story-slideshow" data-aos="fade-up">
 
-      <!-- Slide 1 -->
-      <div class="story-slide active">
-         <img src="./story-4.jpg" alt="Kỷ niệm của An và Hoàn">
-         <div class="story-caption">
-            <h3>Hành Trình Hà Giang</h3>
-            <p>
-               Mọi câu chuyện tình yêu đều mang một vẻ đẹp riêng biệt.
-               Và câu chuyện của chúng tôi bắt đầu từ những điều giản dị nhất.
-            </p>
-         </div>
+   <div class="story-slide active">
+      <img src="./story-1.jpg" alt="Kỷ niệm của An và Hoàn">
+      <div class="story-caption">
+         <h3>Hành Trình Gắn Kết</h3>
+         <p>
+            Mọi câu chuyện tình yêu đều mang một vẻ đẹp riêng biệt.
+            Và câu chuyện của chúng tôi bắt đầu từ những điều giản dị nhất.
+         </p>
       </div>
-
-      <!-- Slide 2 -->
-      <div class="story-slide">
-         <img src="./story-2.jpg" alt="Kỷ niệm của An và Hoàn">
-         <div class="story-caption">
-            <h3>Những Khoảnh Khắc Đáng Nhớ</h3>
-            <p>
-               Cảm ơn vì đã xuất hiện, đồng hành và cùng nhau tạo nên
-               những kỷ niệm thật đẹp.
-            </p>
-         </div>
-      </div>
-
-      <!-- Slide 3 -->
-      <div class="story-slide">
-         <img src="./story-3.jpg" alt="Kỷ niệm của An và Hoàn">
-         <div class="story-caption">
-            <h3>Cùng Nhau Đi Tiếp</h3>
-            <p>
-               Từ hôm nay và mãi về sau, chúng ta sẽ cùng viết tiếp
-               câu chuyện mang tên hạnh phúc.
-            </p>
-         </div>
-      </div>
-
-      <!-- Nút chuyển ảnh -->
-      <button class="story-arrow story-prev" onclick="changeStorySlide(-1)">❮</button>
-      <button class="story-arrow story-next" onclick="changeStorySlide(1)">❯</button>
-
-      <!-- Dấu chấm điều hướng -->
-      <div class="story-dots">
-         <span class="story-dot active" onclick="showStorySlide(0)"></span>
-         <span class="story-dot" onclick="showStorySlide(1)"></span>
-         <span class="story-dot" onclick="showStorySlide(2)"></span>
-      </div>
-
    </div>
+
+   <div class="story-slide">
+      <img src="./story-2.jpg" alt="Kỷ niệm của An và Hoàn">
+      <div class="story-caption">
+         <h3>Những Khoảnh Khắc Đáng Nhớ</h3>
+         <p>
+            Cảm ơn vì đã xuất hiện, đồng hành và cùng nhau tạo nên
+            những kỷ niệm thật đẹp.
+         </p>
+      </div>
+   </div>
+
+   <div class="story-slide">
+      <img src="./story-3.jpg" alt="Kỷ niệm của An và Hoàn">
+      <div class="story-caption">
+         <h3>Cùng Nhau Đi Tiếp</h3>
+         <p>
+            Từ hôm nay và mãi về sau, chúng ta sẽ cùng viết tiếp
+            câu chuyện mang tên hạnh phúc.
+         </p>
+      </div>
+   </div>
+
+   <div class="story-dots">
+      <span class="story-dot active" onclick="showStorySlide(0)"></span>
+      <span class="story-dot" onclick="showStorySlide(1)"></span>
+      <span class="story-dot" onclick="showStorySlide(2)"></span>
+   </div>
+
+</div>
 </section>
 
 
@@ -1124,11 +1108,14 @@ setInterval(createFloatingHeart, 700);
 
 
          
-// OUR STORY SLIDESHOW
+// OUR STORY SLIDESHOW - VUỐT VÀ TỰ ĐỘNG CHẠY KHI CUỘN ĐẾN
 
 let currentStorySlide = 0;
-let storyTimer;
+let storyTimer = null;
+let isStoryVisible = false;
 
+const storySection = document.querySelector("#story");
+const storySlideshow = document.querySelector(".story-slideshow");
 const storySlides = document.querySelectorAll(".story-slide");
 const storyDots = document.querySelectorAll(".story-dot");
 
@@ -1158,17 +1145,70 @@ function changeStorySlide(direction) {
    showStorySlide(currentStorySlide + direction);
 }
 
-function resetStoryTimer() {
-   clearInterval(storyTimer);
+// Chỉ chạy tự động khi Our Story đang hiển thị
+function startStoryTimer() {
+   if (storyTimer || !isStoryVisible) return;
 
    storyTimer = setInterval(() => {
-      showStorySlide(currentStorySlide + 1);
+      changeStorySlide(1);
    }, 5000);
 }
 
-if (storySlides.length > 0) {
-   showStorySlide(0);
+function stopStoryTimer() {
+   clearInterval(storyTimer);
+   storyTimer = null;
 }
+
+function resetStoryTimer() {
+   stopStoryTimer();
+   startStoryTimer();
+}
+
+// Theo dõi khi người xem cuộn đến hoặc rời khỏi Our Story
+const storyObserver = new IntersectionObserver((entries) => {
+   entries.forEach((entry) => {
+      isStoryVisible = entry.isIntersecting;
+
+      if (isStoryVisible) {
+         startStoryTimer();
+      } else {
+         stopStoryTimer();
+      }
+   });
+}, {
+   threshold: 0.3
+});
+
+if (storySection) {
+   storyObserver.observe(storySection);
+}
+
+// Hỗ trợ vuốt trái/phải trên điện thoại
+let touchStartX = 0;
+let touchEndX = 0;
+
+if (storySlideshow) {
+   storySlideshow.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+   }, { passive: true });
+
+   storySlideshow.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+
+      const swipeDistance = touchEndX - touchStartX;
+
+      if (Math.abs(swipeDistance) > 50) {
+         if (swipeDistance < 0) {
+            changeStorySlide(1); // Vuốt sang trái
+         } else {
+            changeStorySlide(-1); // Vuốt sang phải
+         }
+      }
+   }, { passive: true });
+}
+
+// Khởi tạo slide đầu tiên
+showStorySlide(0);
 
 
       </script>
