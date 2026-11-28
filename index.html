@@ -681,6 +681,103 @@
     }
 }
 
+
+
+         /* 3D Carousel - Album ảnh cưới */
+         .album-section {
+            background: #f7f6f2;
+            max-width: none;
+            overflow: hidden;
+         }
+         .album-carousel {
+            max-width: 900px;
+            margin: 0 auto;
+         }
+         .album-stage {
+            position: relative;
+            width: 100%;
+            height: 440px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            perspective: 1200px;
+            touch-action: pan-y;
+            user-select: none;
+         }
+         .album-card {
+            position: absolute;
+            width: min(48%, 430px);
+            height: 390px;
+            padding: 0;
+            border: 8px solid #fff;
+            background: #fff;
+            box-shadow: 0 18px 45px rgba(28, 44, 34, 0.18);
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.65s ease, filter 0.65s ease;
+            -webkit-tap-highlight-color: transparent;
+         }
+         .album-card img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+         }
+         .album-card.is-center {
+            z-index: 3;
+            opacity: 1;
+            filter: none;
+            transform: translateX(0) translateZ(100px) scale(1);
+            cursor: default;
+         }
+         .album-card.is-left {
+            z-index: 2;
+            opacity: 0.62;
+            filter: brightness(0.72);
+            transform: translateX(-66%) translateZ(-110px) rotateY(25deg) scale(0.78);
+         }
+         .album-card.is-right {
+            z-index: 2;
+            opacity: 0.62;
+            filter: brightness(0.72);
+            transform: translateX(66%) translateZ(-110px) rotateY(-25deg) scale(0.78);
+         }
+         .album-card.is-hidden {
+            z-index: 1;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateZ(-250px) scale(0.5);
+         }
+         .album-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin: 4px auto 0;
+         }
+         .album-dots { display: flex; align-items: center; gap: 10px; }
+         .album-dot {
+            width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%;
+            background: #b8b5ae; cursor: pointer; transition: all 0.3s ease;
+         }
+         .album-dot.active { background: var(--gold); transform: scale(1.35); }
+         .album-arrow {
+            border: 0; background: transparent; color: var(--gold);
+            font: 300 30px/1 Arial, sans-serif; cursor: pointer; padding: 0 5px;
+         }
+         .album-arrow:hover { color: var(--primary); }
+         @media (max-width: 768px) {
+            .album-stage { height: 330px; }
+            .album-card { width: 62%; height: 290px; border-width: 5px; }
+            .album-card.is-left { transform: translateX(-58%) translateZ(-100px) rotateY(22deg) scale(0.72); }
+            .album-card.is-right { transform: translateX(58%) translateZ(-100px) rotateY(-22deg) scale(0.72); }
+         }
+         @media (max-width: 420px) {
+            .album-stage { height: 285px; }
+            .album-card { width: 68%; height: 250px; }
+         }
+
       </style>
    </head>
    <body>
@@ -741,6 +838,7 @@
          <a href="#home">Trang Chủ</a>
          <a href="#story">Cặp Đôi</a>
          <a href="#event">Lễ Cưới</a>
+         <a href="#album">Album</a>
          <a href="#rsvp">Xác Nhận</a>
          <a href="#gift">Mừng Cưới</a>
       </nav>
@@ -885,6 +983,37 @@
     </div>
 </div>
 
+         </div>
+      </section>
+
+      <!-- Album ảnh cưới: 3D Carousel Slider -->
+      <section id="album" class="album-section">
+         <div class="section-header" data-aos="fade-up">
+            <h2>Album ảnh cưới</h2>
+            <div class="divider"></div>
+         </div>
+
+         <div class="album-carousel" data-aos="fade-up" aria-label="Album ảnh cưới">
+            <div class="album-stage" id="album-stage">
+               <button class="album-card" type="button" data-index="0" aria-label="Xem ảnh 1">
+                  <img src="./story-1.jpg" alt="Ảnh cưới 1" draggable="false">
+               </button>
+               <button class="album-card" type="button" data-index="1" aria-label="Xem ảnh 2">
+                  <img src="./story-2.jpg" alt="Ảnh cưới 2" draggable="false">
+               </button>
+               <button class="album-card" type="button" data-index="2" aria-label="Xem ảnh 3">
+                  <img src="./story-3.jpg" alt="Ảnh cưới 3" draggable="false">
+               </button>
+            </div>
+            <div class="album-controls">
+               <button class="album-arrow" id="album-prev" type="button" aria-label="Ảnh trước">&#8249;</button>
+               <div class="album-dots" aria-label="Chọn ảnh">
+                  <button class="album-dot active" type="button" data-index="0" aria-label="Ảnh 1"></button>
+                  <button class="album-dot" type="button" data-index="1" aria-label="Ảnh 2"></button>
+                  <button class="album-dot" type="button" data-index="2" aria-label="Ảnh 3"></button>
+               </div>
+               <button class="album-arrow" id="album-next" type="button" aria-label="Ảnh tiếp theo">&#8250;</button>
+            </div>
          </div>
       </section>
 
@@ -1401,6 +1530,44 @@ window.addEventListener("blur", stopHoldingStory);
 // Khởi tạo slide đầu tiên
 showStorySlide(0);
 
+         // Điều khiển 3D Carousel cho Album ảnh cưới
+         (() => {
+            const stage = document.getElementById("album-stage");
+            if (!stage) return;
+            const cards = Array.from(stage.querySelectorAll(".album-card"));
+            const dots = Array.from(document.querySelectorAll(".album-dot"));
+            let activeAlbumIndex = 0;
+
+            function renderAlbum(index) {
+               activeAlbumIndex = (index + cards.length) % cards.length;
+               cards.forEach((card, i) => {
+                  card.classList.remove("is-center", "is-left", "is-right", "is-hidden");
+                  const offset = (i - activeAlbumIndex + cards.length) % cards.length;
+                  if (offset === 0) card.classList.add("is-center");
+                  else if (offset === 1) card.classList.add("is-right");
+                  else if (offset === cards.length - 1) card.classList.add("is-left");
+                  else card.classList.add("is-hidden");
+                  card.setAttribute("aria-pressed", i === activeAlbumIndex ? "true" : "false");
+               });
+               dots.forEach((dot, i) => dot.classList.toggle("active", i === activeAlbumIndex));
+            }
+
+            document.getElementById("album-prev").addEventListener("click", () => renderAlbum(activeAlbumIndex - 1));
+            document.getElementById("album-next").addEventListener("click", () => renderAlbum(activeAlbumIndex + 1));
+            cards.forEach((card, i) => card.addEventListener("click", () => renderAlbum(i)));
+            dots.forEach((dot, i) => dot.addEventListener("click", () => renderAlbum(i)));
+
+            let startX = 0;
+            stage.addEventListener("touchstart", (event) => {
+               startX = event.changedTouches[0].clientX;
+            }, { passive: true });
+            stage.addEventListener("touchend", (event) => {
+               const distance = event.changedTouches[0].clientX - startX;
+               if (Math.abs(distance) > 45) renderAlbum(activeAlbumIndex + (distance < 0 ? 1 : -1));
+            }, { passive: true });
+
+            renderAlbum(0);
+         })();
 
       </script>
    </body>
