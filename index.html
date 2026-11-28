@@ -717,24 +717,26 @@
             overflow: hidden;
          }
          .album-carousel {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
          }
          .album-stage {
             position: relative;
             width: 100%;
-            height: 440px;
+            height: 520px;
             display: flex;
             align-items: center;
             justify-content: center;
             perspective: 1200px;
             touch-action: pan-y;
             user-select: none;
+            overflow: visible;
          }
          .album-card {
             position: absolute;
-            width: min(48%, 430px);
-            height: 390px;
+            width: min(42%, 460px);
+            height: auto;
+            aspect-ratio: var(--album-ratio, 3 / 4);
             padding: 0;
             border: 8px solid #fff;
             background: #fff;
@@ -748,7 +750,8 @@
             display: block;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
+            background: #fff;
             pointer-events: none;
          }
          .album-card.is-center {
@@ -762,13 +765,13 @@
             z-index: 2;
             opacity: 0.62;
             filter: brightness(0.72);
-            transform: translateX(-66%) translateZ(-110px) rotateY(25deg) scale(0.78);
+            transform: translateX(-72%) translateZ(-110px) rotateY(25deg) scale(0.78);
          }
          .album-card.is-right {
             z-index: 2;
             opacity: 0.62;
             filter: brightness(0.72);
-            transform: translateX(66%) translateZ(-110px) rotateY(-25deg) scale(0.78);
+            transform: translateX(72%) translateZ(-110px) rotateY(-25deg) scale(0.78);
          }
          .album-card.is-hidden {
             z-index: 1;
@@ -795,14 +798,14 @@
          }
          .album-arrow:hover { color: var(--primary); }
          @media (max-width: 768px) {
-            .album-stage { height: 330px; }
-            .album-card { width: 62%; height: 290px; border-width: 5px; }
-            .album-card.is-left { transform: translateX(-58%) translateZ(-100px) rotateY(22deg) scale(0.72); }
-            .album-card.is-right { transform: translateX(58%) translateZ(-100px) rotateY(-22deg) scale(0.72); }
+            .album-stage { height: 430px; }
+            .album-card { width: min(58%, 390px); border-width: 5px; }
+            .album-card.is-left { transform: translateX(-68%) translateZ(-100px) rotateY(22deg) scale(0.72); }
+            .album-card.is-right { transform: translateX(68%) translateZ(-100px) rotateY(-22deg) scale(0.72); }
          }
          @media (max-width: 420px) {
-            .album-stage { height: 285px; }
-            .album-card { width: 68%; height: 250px; }
+            .album-stage { height: 380px; }
+            .album-card { width: 66%; }
          }
 
          /* Xem ảnh giữa ở kích thước toàn màn hình */
@@ -1628,6 +1631,32 @@ showStorySlide(0);
             const cards = Array.from(stage.querySelectorAll(".album-card"));
             const dots = Array.from(document.querySelectorAll(".album-dot"));
             let activeAlbumIndex = 0;
+
+            function fitAlbumFramesToImages() {
+               let tallestCard = 0;
+               cards.forEach((card) => {
+                  const image = card.querySelector("img");
+                  if (!image) return;
+
+                  const applyRatio = () => {
+                     if (!image.naturalWidth || !image.naturalHeight) return;
+                     card.style.setProperty(
+                        "--album-ratio",
+                        `${image.naturalWidth} / ${image.naturalHeight}`
+                     );
+                     const cardWidth = card.getBoundingClientRect().width;
+                     const ratio = image.naturalWidth / image.naturalHeight;
+                     tallestCard = Math.max(tallestCard, cardWidth / ratio);
+                     stage.style.height = `${Math.max(tallestCard + 50, window.innerWidth <= 420 ? 300 : window.innerWidth <= 768 ? 340 : 400)}px`;
+                  };
+
+                  if (image.complete) applyRatio();
+                  else image.addEventListener("load", applyRatio, { once: true });
+               });
+            }
+
+            fitAlbumFramesToImages();
+            window.addEventListener("resize", fitAlbumFramesToImages);
 
             function renderAlbum(index) {
                activeAlbumIndex = (index + cards.length) % cards.length;
