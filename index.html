@@ -786,7 +786,7 @@
             gap: 18px;
             margin: 4px auto 0;
          }
-         .album-dots { display: flex; align-items: center; gap: 10px; }
+         .album-dots { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 9px; max-width: min(420px, 62vw); }
          .album-dot {
             width: 8px; height: 8px; padding: 0; border: 0; border-radius: 50%;
             background: #b8b5ae; cursor: pointer; transition: all 0.3s ease;
@@ -1081,24 +1081,10 @@
          </div>
 
          <div class="album-carousel" data-aos="fade-up" aria-label="Album ảnh cưới">
-            <div class="album-stage" id="album-stage">
-               <button class="album-card" type="button" data-index="0" aria-label="Xem ảnh 1">
-                  <img src="./story-1.jpg" alt="Ảnh cưới 1" draggable="false">
-               </button>
-               <button class="album-card" type="button" data-index="1" aria-label="Xem ảnh 2">
-                  <img src="./story-2.jpg" alt="Ảnh cưới 2" draggable="false">
-               </button>
-               <button class="album-card" type="button" data-index="2" aria-label="Xem ảnh 3">
-                  <img src="./story-3.jpg" alt="Ảnh cưới 3" draggable="false">
-               </button>
-            </div>
+            <div class="album-stage" id="album-stage" aria-label="Danh sách 33 ảnh cưới"></div>
             <div class="album-controls">
                <button class="album-arrow" id="album-prev" type="button" aria-label="Ảnh trước">&#8249;</button>
-               <div class="album-dots" aria-label="Chọn ảnh">
-                  <button class="album-dot active" type="button" data-index="0" aria-label="Ảnh 1"></button>
-                  <button class="album-dot" type="button" data-index="1" aria-label="Ảnh 2"></button>
-                  <button class="album-dot" type="button" data-index="2" aria-label="Ảnh 3"></button>
-               </div>
+               <div class="album-dots" id="album-dots" aria-label="Chọn ảnh"></div>
                <button class="album-arrow" id="album-next" type="button" aria-label="Ảnh tiếp theo">&#8250;</button>
             </div>
          </div>
@@ -1627,9 +1613,49 @@ showStorySlide(0);
          // Điều khiển 3D Carousel cho Album ảnh cưới
          (() => {
             const stage = document.getElementById("album-stage");
-            if (!stage) return;
+            const dotsContainer = document.getElementById("album-dots");
+            if (!stage || !dotsContainer) return;
+
+            // Danh sách 33 ảnh trong thư mục website
+            const albumImages = [
+               "HEE05573.jpg", "HEE06448.jpg", "HEE06491.jpg",
+               "HEE06546.jpg", "HEE06803.jpg", "HEE06841.jpg",
+               "HEE07297.jpg", "HEE05922.jpg", "HEE05955.jpg",
+               "HEE06174.jpg", "HEE06355.jpg", "HEE06390.jpg",
+               "HEE06522.jpg", "HEE06614.jpg", "HEE06676.jpg",
+               "HEE06788.jpg", "HEE07092.jpg", "HEE07118.jpg",
+               "HEE07126.jpg", "HEE07647.jpg", "HEE05620.jpg",
+               "HEE05647.jpg", "HEE05665.jpg", "HEE05818.jpg",
+               "HEE06333.jpg", "HEE06528.jpg", "HEE06568.jpg",
+               "HEE07112.jpg", "HEE07211.jpg", "HEE07653.jpg",
+               "HEE07659.jpg", "HEE07734.jpg", "HEE06849.jpg"
+            ];
+
+            albumImages.forEach((filename, index) => {
+               const card = document.createElement("button");
+               card.className = "album-card";
+               card.type = "button";
+               card.dataset.index = String(index);
+               card.setAttribute("aria-label", `Xem ảnh ${index + 1}: ${filename}`);
+
+               const image = document.createElement("img");
+               image.src = `./${filename}`;
+               image.alt = filename;
+               image.draggable = false;
+               card.appendChild(image);
+               stage.appendChild(card);
+
+               const dot = document.createElement("button");
+               dot.className = index === 0 ? "album-dot active" : "album-dot";
+               dot.type = "button";
+               dot.dataset.index = String(index);
+               dot.setAttribute("aria-label", `Chọn ảnh ${index + 1}: ${filename}`);
+               dot.title = filename;
+               dotsContainer.appendChild(dot);
+            });
+
             const cards = Array.from(stage.querySelectorAll(".album-card"));
-            const dots = Array.from(document.querySelectorAll(".album-dot"));
+            const dots = Array.from(dotsContainer.querySelectorAll(".album-dot"));
             let activeAlbumIndex = 0;
 
             function fitAlbumFramesToImages() {
