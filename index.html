@@ -231,20 +231,40 @@
 }
 
 .story-slide {
-   display: none;
+   /* Các slide cùng chiếm một ô grid: chiều cao slideshow không đổi khi chuyển ảnh. */
+   display: block;
+   grid-area: 1 / 1;
    position: relative;
-   animation: storyFade 0.8s ease;
+   visibility: hidden;
+   opacity: 0;
+   pointer-events: none;
+   animation: none;
 }
 
 .story-slide.active {
-   display: block;
+   visibility: visible;
+   opacity: 1;
+   pointer-events: auto;
+   animation: storyFade 0.8s ease;
+}
+
+.story-slideshow {
+   display: grid;
+   align-items: start;
 }
 
 .story-slide img {
    display: block;
    width: 100%;
    height: 520px;
+   min-height: 520px;
+   max-height: 520px;
    object-fit: cover;
+}
+
+.story-caption {
+   box-sizing: border-box;
+   min-height: 190px;
 }
          /* Ngăn trình duyệt kéo ảnh mặc định */
 .story-slide img {
@@ -399,6 +419,11 @@
       height: 350px;
       min-height: 350px;
       max-height: 350px;
+   }
+
+   .story-caption {
+      min-height: 190px;
+      box-sizing: border-box;
    }
 
    .story-caption {
@@ -810,6 +835,31 @@
             color: white;
             font: 300 38px/1 Arial, sans-serif;
             cursor: pointer;
+            z-index: 2;
+         }
+         .album-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 64px;
+            border: 0;
+            border-radius: 4px;
+            background: rgba(255,255,255,.12);
+            color: #fff;
+            font: 300 48px/1 Arial, sans-serif;
+            cursor: pointer;
+            z-index: 2;
+            transition: background .2s ease;
+         }
+         .album-lightbox-nav:hover { background: rgba(255,255,255,.25); }
+         .album-lightbox-prev { left: 18px; }
+         .album-lightbox-next { right: 18px; }
+         @media (max-width: 600px) {
+            .album-lightbox { padding: 18px 54px; }
+            .album-lightbox-nav { width: 38px; height: 52px; font-size: 38px; }
+            .album-lightbox-prev { left: 8px; }
+            .album-lightbox-next { right: 8px; }
          }
 
       </style>
@@ -1053,7 +1103,9 @@
 
       <div class="album-lightbox" id="album-lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh cưới phóng to">
          <button class="album-lightbox-close" id="album-lightbox-close" type="button" aria-label="Đóng">&times;</button>
+         <button class="album-lightbox-nav album-lightbox-prev" id="album-lightbox-prev" type="button" aria-label="Ảnh trước">&#8249;</button>
          <img id="album-lightbox-image" src="" alt="Ảnh cưới phóng to">
+         <button class="album-lightbox-nav album-lightbox-next" id="album-lightbox-next" type="button" aria-label="Ảnh tiếp theo">&#8250;</button>
       </div>
 
       <section id="rsvp">
@@ -1596,14 +1648,27 @@ showStorySlide(0);
             const lightbox = document.getElementById("album-lightbox");
             const lightboxImage = document.getElementById("album-lightbox-image");
             const closeLightboxButton = document.getElementById("album-lightbox-close");
+            const lightboxPrevButton = document.getElementById("album-lightbox-prev");
+            const lightboxNextButton = document.getElementById("album-lightbox-next");
+            let lightboxAlbumIndex = 0;
 
-            function openAlbumLightbox(index) {
-               const image = cards[index].querySelector("img");
+            function updateAlbumLightbox(index) {
+               lightboxAlbumIndex = (index + cards.length) % cards.length;
+               const image = cards[lightboxAlbumIndex].querySelector("img");
                if (!image) return;
                lightboxImage.src = image.src;
                lightboxImage.alt = image.alt || "Ảnh cưới phóng to";
+            }
+
+            function openAlbumLightbox(index) {
+               updateAlbumLightbox(index);
                lightbox.classList.add("is-open");
                document.body.style.overflow = "hidden";
+            }
+
+            function changeLightboxImage(direction) {
+               updateAlbumLightbox(lightboxAlbumIndex + direction);
+               renderAlbum(lightboxAlbumIndex);
             }
 
             function closeAlbumLightbox() {
@@ -1618,12 +1683,27 @@ showStorySlide(0);
             }));
             dots.forEach((dot, i) => dot.addEventListener("click", () => renderAlbum(i)));
             closeLightboxButton.addEventListener("click", closeAlbumLightbox);
+            lightboxPrevButton.addEventListener("click", () => changeLightboxImage(-1));
+            lightboxNextButton.addEventListener("click", () => changeLightboxImage(1));
             lightbox.addEventListener("click", (event) => {
                if (event.target === lightbox) closeAlbumLightbox();
             });
             document.addEventListener("keydown", (event) => {
-               if (event.key === "Escape" && lightbox.classList.contains("is-open")) closeAlbumLightbox();
+               if (!lightbox.classList.contains("is-open")) return;
+               if (event.key === "Escape") closeAlbumLightbox();
+               else if (event.key === "ArrowLeft") changeLightboxImage(-1);
+               else if (event.key === "ArrowRight") changeLightboxImage(1);
             });
+
+            let lightboxStartX = 0;
+            lightbox.addEventListener("touchstart", (event) => {
+               lightboxStartX = event.changedTouches[0].clientX;
+            }, { passive: true });
+            lightbox.addEventListener("touchend", (event) => {
+               if (!lightbox.classList.contains("is-open")) return;
+               const distance = event.changedTouches[0].clientX - lightboxStartX;
+               if (Math.abs(distance) > 45) changeLightboxImage(distance < 0 ? 1 : -1);
+            }, { passive: true });
 
             let startX = 0;
             stage.addEventListener("touchstart", (event) => {
