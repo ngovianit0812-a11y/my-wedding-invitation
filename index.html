@@ -397,6 +397,8 @@
 @media (max-width: 768px) {
    .story-slide img {
       height: 350px;
+      min-height: 350px;
+      max-height: 350px;
    }
 
    .story-caption {
@@ -662,22 +664,22 @@
 @keyframes storySlideNext {
     from {
         opacity: 0;
-        transform: translateX(60px) scale(0.98);
+        transform: translateX(60px);
     }
     to {
         opacity: 1;
-        transform: translateX(0) scale(1);
+        transform: translateX(0);
     }
 }
 
 @keyframes storySlidePrev {
     from {
         opacity: 0;
-        transform: translateX(-60px) scale(0.98);
+        transform: translateX(-60px);
     }
     to {
         opacity: 1;
-        transform: translateX(0) scale(1);
+        transform: translateX(0);
     }
 }
 
@@ -778,6 +780,38 @@
             .album-card { width: 68%; height: 250px; }
          }
 
+         /* Xem ảnh giữa ở kích thước toàn màn hình */
+         .album-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            background: rgba(0, 0, 0, 0.92);
+         }
+         .album-lightbox.is-open { display: flex; }
+         .album-lightbox img {
+            display: block;
+            max-width: 94vw;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            box-shadow: 0 12px 50px rgba(0,0,0,.35);
+         }
+         .album-lightbox-close {
+            position: absolute;
+            top: 16px;
+            right: 22px;
+            border: 0;
+            background: transparent;
+            color: white;
+            font: 300 38px/1 Arial, sans-serif;
+            cursor: pointer;
+         }
+
       </style>
    </head>
    <body>
@@ -838,7 +872,7 @@
          <a href="#home">Trang Chủ</a>
          <a href="#story">Cặp Đôi</a>
          <a href="#event">Lễ Cưới</a>
-         <a href="#album">Album</a>
+         <a href="#album">Ảnh Cưới</a>
          <a href="#rsvp">Xác Nhận</a>
          <a href="#gift">Mừng Cưới</a>
       </nav>
@@ -989,7 +1023,7 @@
       <!-- Album ảnh cưới: 3D Carousel Slider -->
       <section id="album" class="album-section">
          <div class="section-header" data-aos="fade-up">
-            <h2>Album ảnh cưới</h2>
+            <h2>Pre-wedding</h2>
             <div class="divider"></div>
          </div>
 
@@ -1016,6 +1050,11 @@
             </div>
          </div>
       </section>
+
+      <div class="album-lightbox" id="album-lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh cưới phóng to">
+         <button class="album-lightbox-close" id="album-lightbox-close" type="button" aria-label="Đóng">&times;</button>
+         <img id="album-lightbox-image" src="" alt="Ảnh cưới phóng to">
+      </div>
 
       <section id="rsvp">
          <div class="section-header" data-aos="fade-up">
@@ -1554,8 +1593,37 @@ showStorySlide(0);
 
             document.getElementById("album-prev").addEventListener("click", () => renderAlbum(activeAlbumIndex - 1));
             document.getElementById("album-next").addEventListener("click", () => renderAlbum(activeAlbumIndex + 1));
-            cards.forEach((card, i) => card.addEventListener("click", () => renderAlbum(i)));
+            const lightbox = document.getElementById("album-lightbox");
+            const lightboxImage = document.getElementById("album-lightbox-image");
+            const closeLightboxButton = document.getElementById("album-lightbox-close");
+
+            function openAlbumLightbox(index) {
+               const image = cards[index].querySelector("img");
+               if (!image) return;
+               lightboxImage.src = image.src;
+               lightboxImage.alt = image.alt || "Ảnh cưới phóng to";
+               lightbox.classList.add("is-open");
+               document.body.style.overflow = "hidden";
+            }
+
+            function closeAlbumLightbox() {
+               lightbox.classList.remove("is-open");
+               lightboxImage.src = "";
+               document.body.style.overflow = "";
+            }
+
+            cards.forEach((card, i) => card.addEventListener("click", () => {
+               if (i === activeAlbumIndex) openAlbumLightbox(i);
+               else renderAlbum(i);
+            }));
             dots.forEach((dot, i) => dot.addEventListener("click", () => renderAlbum(i)));
+            closeLightboxButton.addEventListener("click", closeAlbumLightbox);
+            lightbox.addEventListener("click", (event) => {
+               if (event.target === lightbox) closeAlbumLightbox();
+            });
+            document.addEventListener("keydown", (event) => {
+               if (event.key === "Escape" && lightbox.classList.contains("is-open")) closeAlbumLightbox();
+            });
 
             let startX = 0;
             stage.addEventListener("touchstart", (event) => {
